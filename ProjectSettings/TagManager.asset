@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - Tanks
+  - Projectiles
+  - Wall
+  - Game Assets
+  - Projectile Bounce Collider
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 4240599535
+    locked: 0
+  - name: Foreground
+    uniqueID: 949955491
+    locked: 0
+  - name: Pickups
+    uniqueID: 1716879705
+    locked: 0
+  - name: Player
+    uniqueID: 4128497753
+    locked: 0
+  - name: Overlay
+    uniqueID: 4211009859
+    locked: 0
+  - name: UI
+    uniqueID: 4280119019
+    locked: 0
