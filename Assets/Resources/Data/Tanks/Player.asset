@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player
   m_EditorClassIdentifier: 
   <Health>k__BackingField: 1
-  <GunRotationSpeed>k__BackingField: 10
+  <GunRotationSpeed>k__BackingField: 150
   <MovementData>k__BackingField:
     <MoveSpeed>k__BackingField: 2.5
-    <TankRotationSpeed>k__BackingField: 2.5
+    <TankRotationSpeed>k__BackingField: 150

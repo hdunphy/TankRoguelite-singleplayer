@@ -16,7 +16,9 @@ namespace Assets.Game.Scripts.Controllers
 
         private void RotateGun()
         {
-            rotationPoint.right = Vector2.MoveTowards(rotationPoint.right, _gunDirection, _gunRotationSpeed * Time.deltaTime);
+            var targetAngle = Vector2.SignedAngle(Vector2.right, _gunDirection);
+            var angle = Mathf.MoveTowardsAngle(rotationPoint.eulerAngles.z, targetAngle, _gunRotationSpeed * Time.deltaTime);
+            rotationPoint.eulerAngles = new Vector3(0, 0, angle);
         }
 
         public void SetGunRotationSpeed(float gunRotationSpeed) => _gunRotationSpeed = gunRotationSpeed;
@@ -25,7 +27,7 @@ namespace Assets.Game.Scripts.Controllers
             Vector2 direction = point - (Vector2)transform.position;
             Debug.DrawRay(transform.position, direction, Color.black, .1f);
             
-            _gunDirection = direction;
+            _gunDirection = direction.normalized;
         }
     }
 }

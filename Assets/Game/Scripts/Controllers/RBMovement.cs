@@ -30,7 +30,7 @@ namespace Assets.Game.Scripts.Controllers
 
         public void StopMoving()
         {
-            _normalizedDirection = transform.up;
+            _normalizedDirection = Vector2.zero;
         }
 
         private void RotateTank()
@@ -38,12 +38,15 @@ namespace Assets.Game.Scripts.Controllers
             var target = _normalizedDirection;
             if(target == Vector2.zero) return;
 
-            var angle = Vector2.Angle(transform.up, target);
-            if (angle > 90)
+            if (Vector2.Angle(transform.up, target) > 90)
             {
                 target *= -1;
             }
-            transform.up = Vector2.MoveTowards(transform.up, target, _movementData.TankRotationSpeed * Time.deltaTime);
+
+            var currentAngle = transform.eulerAngles.z;
+            var targetAngle = Vector2.SignedAngle(Vector2.up, target);
+            var angle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, _movementData.TankRotationSpeed * Time.deltaTime);
+            transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }
 }
