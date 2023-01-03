@@ -28,10 +28,7 @@ namespace Assets.Game.Scripts.Controllers
             _rigidbody2D.velocity = _normalizedDirection * _movementData.MoveSpeed;
         }
 
-        public void StopMoving()
-        {
-            _normalizedDirection = Vector2.zero;
-        }
+        public void StopMoving() => _normalizedDirection = Vector2.zero;
 
         private void RotateTank()
         {
