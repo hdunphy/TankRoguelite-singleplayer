@@ -18,17 +18,21 @@ namespace Assets.Game.Scripts.Entities
             CurrentHealth = totalHealth;
         }
 
-        public void TakeDamage(int damage, DamageType damageType)
+        public bool TakeDamage(int damage, DamageType damageType)
         {
+            bool tookDamage = false;
             if(affectedDamageTypes.Contains(damageType))
             {
                 CurrentHealth -= damage;
+                tookDamage = true;
 
                 if(CurrentHealth <= 0)
                 {
                     OnDied?.Invoke();
                 }
             }
+
+            return tookDamage;
         }
     }
 }

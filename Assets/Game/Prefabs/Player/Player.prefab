@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 765016141}
   - component: {fileID: 765016143}
   - component: {fileID: 765016142}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Icon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 1761456089}
   - component: {fileID: 1761456088}
   - component: {fileID: 1761456087}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,10 @@ GameObject:
   - component: {fileID: 7028818176226540949}
   - component: {fileID: 7028818176226540948}
   - component: {fileID: 7028818176226540945}
-  m_Layer: 0
+  - component: {fileID: 7438249998658824114}
+  - component: {fileID: 5869941430440545636}
+  - component: {fileID: 7139206043173661382}
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,6 +326,8 @@ MonoBehaviour:
   tankData: {fileID: 11400000, guid: ff0a11fee020bee419129b4391a13ff6, type: 2}
   gunMovement: {fileID: 7028818176226540945}
   playerTargeter: {fileID: 1681283627}
+  primaryFiringController: {fileID: 7438249998658824114}
+  secondaryFiringController: {fileID: 5869941430440545636}
 --- !u!114 &7028818176226540948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -348,6 +353,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationPoint: {fileID: 7028818177730240443}
+--- !u!114 &7438249998658824114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028818176226540955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fbedf81a441f245bd64e436f8dbbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 7028818177787652699}
+  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
+  firingType: 0
+  totalAmmo: 5
+--- !u!114 &5869941430440545636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028818176226540955}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fbedf81a441f245bd64e436f8dbbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 7028818177787652699}
+  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
+  firingType: 1
+  totalAmmo: 1
+--- !u!114 &7139206043173661382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7028818176226540955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0c0395bbed71204fab1ae6e75fcb40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  totalHealth: 1
+  affectedDamageTypes: 0000000001000000
+  OnDied:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7028818177028067568
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,7 +411,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028818177028067571}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7028818177470889198}
   - component: {fileID: 7028818177470889193}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tank Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +528,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028818177512600482}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Art
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -507,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028818177730240443}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rotation Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +593,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7028818177787652699}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Fire Point
   m_TagString: Untagged
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
@@ -571,7 +625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7028818177923097381}
   - component: {fileID: 7028818177923097380}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
