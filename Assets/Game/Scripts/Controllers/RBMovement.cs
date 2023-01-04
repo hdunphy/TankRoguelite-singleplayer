@@ -17,6 +17,11 @@ namespace Assets.Game.Scripts.Controllers
 
         private void FixedUpdate()
         {
+            if(_normalizedDirection != Vector2.zero)
+            {
+                _rigidbody2D.velocity = _normalizedDirection * _movementData.MoveSpeed;
+            }
+
             RotateTank();
         }
 
@@ -25,7 +30,6 @@ namespace Assets.Game.Scripts.Controllers
         public void SetMovementDirection(Vector2 movementDirection)
         {
             _normalizedDirection = movementDirection.normalized;
-            _rigidbody2D.velocity = _normalizedDirection * _movementData.MoveSpeed;
         }
 
         public void StopMoving() => _normalizedDirection = Vector2.zero;
