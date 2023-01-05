@@ -3363,9 +3363,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7028818176226540951, guid: 6270be68adf5ca9418e91470351a61a9, type: 3}
-      propertyPath: m_LinearDrag
-      value: 0.1
+    - target: {fileID: 5869941430440545636, guid: 6270be68adf5ca9418e91470351a61a9, type: 3}
+      propertyPath: ability
+      value: 
+      objectReference: {fileID: 11400000, guid: c135d0696642d774eaed9a5136b380d5, type: 2}
+    - target: {fileID: 5869941430440545636, guid: 6270be68adf5ca9418e91470351a61a9, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7028818176226540954, guid: 6270be68adf5ca9418e91470351a61a9, type: 3}
       propertyPath: m_RootOrder

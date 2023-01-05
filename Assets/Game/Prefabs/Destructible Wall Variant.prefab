@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.65
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -33,15 +33,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454218, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5151058918917454231, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
       propertyPath: m_Name
-      value: Destructible Wall Variant
+      value: Destructible Wall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eae9020cc91d3fc4ca4b0ab7a998f28d, type: 3}
@@ -82,4 +82,16 @@ MonoBehaviour:
   affectedDamageTypes: 01000000
   OnDied:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7779044255460853159}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
