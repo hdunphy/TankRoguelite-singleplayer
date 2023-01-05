@@ -5,7 +5,7 @@ namespace Assets.Game.Scripts.Controllers
 {
     public interface IMovement
     {
-        void SetMovementData(MovementData movementData);
+        void SetTankData(TankData data);
         void SetMovementDirection(Vector2 movementDirection);
         void StopMoving();
     }

@@ -23,11 +23,14 @@ namespace Assets.Game.Scripts.Entities.Abilities
         {
             Ability = ScriptableObject.Instantiate(_ability); //Instantiate so that we create a clone of the scriptable object
                                                               //and don't have to worry about multiple instances
+            Ability.AbilityModifier = new();
             CurrentState = AbilityState.Ready; //Set ability to ready
             Parent = parent;
             Ability.IsButtonPressed = false; //initialize to false so to not immediately trigger the ability
             Ability.Parameter = parameter;
         }
+
+        public void SetAbilityModifer(AbilityModifier abilityModifier) => Ability.AbilityModifier = abilityModifier;
 
         /// <summary>
         /// Called on every Update() of parent game object

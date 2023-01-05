@@ -2,6 +2,18 @@
 
 namespace Assets.Game.Scripts.Entities.Abilities
 {
+    public class AbilityModifier
+    {
+        public float ActionTimeModifer { get; set; }
+        public float CoolDownTimeModifer { get; set; }
+
+        public AbilityModifier()
+        {
+            ActionTimeModifer = 1;
+            CoolDownTimeModifer = 1;
+        }
+    }
+
     public abstract class Ability : ScriptableObject
     {
         [SerializeField] private new string name; //ability name
@@ -9,6 +21,7 @@ namespace Assets.Game.Scripts.Entities.Abilities
         [SerializeField, Tooltip("How long before you can use the ability again")] private float cooldownTime;
         [SerializeField] private Sprite sprite;
 
+        public AbilityModifier AbilityModifier { get; set; } = new();
         public bool HasUse { get; set; } //Keeps track if this ability is enable/disabled. True if can be used
         public bool IsButtonPressed { get; set; } //Keep track if input is being pressed
         public float ActionTime { get => actionTime; } //public member to get the action time

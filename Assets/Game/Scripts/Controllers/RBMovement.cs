@@ -6,7 +6,7 @@ namespace Assets.Game.Scripts.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     public class RBMovement : MonoBehaviour, IMovement
     {
-        private MovementData _movementData;
+        private TankData _tankData;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _normalizedDirection;
 
@@ -19,13 +19,13 @@ namespace Assets.Game.Scripts.Controllers
         {
             if(_normalizedDirection != Vector2.zero)
             {
-                _rigidbody2D.velocity = _normalizedDirection * _movementData.MoveSpeed;
+                _rigidbody2D.velocity = _normalizedDirection * _tankData.MoveSpeed;
             }
 
             RotateTank();
         }
 
-        public void SetMovementData(MovementData movementData) => _movementData = movementData;
+        public void SetTankData(TankData tankData) => _tankData = tankData;
 
         public void SetMovementDirection(Vector2 movementDirection)
         {
@@ -46,7 +46,7 @@ namespace Assets.Game.Scripts.Controllers
 
             var currentAngle = transform.eulerAngles.z;
             var targetAngle = Vector2.SignedAngle(Vector2.up, target);
-            var angle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, _movementData.TankRotationSpeed * Time.deltaTime);
+            var angle = Mathf.MoveTowardsAngle(currentAngle, targetAngle, _tankData.TankRotationSpeed * Time.deltaTime);
             transform.eulerAngles = new Vector3(0, 0, angle);
         }
     }

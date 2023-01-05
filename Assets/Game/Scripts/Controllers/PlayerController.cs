@@ -1,7 +1,6 @@
 ﻿using Assets.Game.Scripts.Entities;
 using Assets.Game.Scripts.Entities.Abilities;
 using Assets.Scripts.Inputs;
-using System;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -26,6 +25,12 @@ namespace Assets.Game.Scripts.Controllers
             _movement= GetComponent<IMovement>();
 
             _controls = new();
+
+            //TODO: might need to fix this depending on how I handle room transitions
+            tankData.ResetModifier();
+
+            primaryFiringController.SetTankData(tankData);
+            secondaryFiringController.SetTankData(tankData);
         }
 
         private void OnEnable()
@@ -49,7 +54,7 @@ namespace Assets.Game.Scripts.Controllers
             _controls.Player.SecondaryFire.performed += HandleSecondaryFire;
             _controls.Player.SecondaryFire.canceled += HandleSecondaryFire;
 
-            _movement.SetMovementData(tankData.MovementData);
+            _movement.SetTankData(tankData);
             gunMovement.SetGunRotationSpeed(tankData.GunRotationSpeed);
         }
 
@@ -91,7 +96,7 @@ namespace Assets.Game.Scripts.Controllers
 
         private void SetIsFiring(FiringController firingController, bool isPressed)
         {
-            if(firingController is not null && firingController.enabled)
+            if(firingController.enabled)
             {
                 firingController.SetAbilityButtonPressed(isPressed);
             }

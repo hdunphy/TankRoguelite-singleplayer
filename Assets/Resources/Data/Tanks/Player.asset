@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1bfb0dc9dc5a0641b3c9b39d683b31a, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  <Health>k__BackingField: 1
-  <GunRotationSpeed>k__BackingField: 250
-  <MovementData>k__BackingField:
-    <MoveSpeed>k__BackingField: 2.5
-    <TankRotationSpeed>k__BackingField: 150
+  health: 1
+  startingPrimaryAmmo: 3
+  startingSecondaryAmmo: 1
+  moveSpeed: 2.5
+  tankRotationSpeed: 150
+  gunRotationSpeed: 250
