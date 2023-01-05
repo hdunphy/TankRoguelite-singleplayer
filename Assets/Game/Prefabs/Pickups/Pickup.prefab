@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 604805436583417995}
   - component: {fileID: 4974631720422735700}
   m_Layer: 0
-  m_Name: Rocket Pickup
+  m_Name: Pickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -159,7 +159,7 @@ MonoBehaviour:
   OnPickupEvent:
     m_PersistentCalls:
       m_Calls: []
-  ability: {fileID: 11400000, guid: 3a208f477b23e714a9378c4fca4c9bca, type: 2}
+  ability: {fileID: 0}
   spriteRenderer: {fileID: 8206474957067388197}
   isPrimaryAbility: 0
 --- !u!1 &5042913436990098681
