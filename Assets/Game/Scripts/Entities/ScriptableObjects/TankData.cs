@@ -26,5 +26,10 @@ namespace Assets.Game.Scripts.Entities
         {
             TankModifiers = new();
         }
+
+        public void AddModifiers(TankModifiers modifiers)
+        {
+            TankModifiers += modifiers;
+        }
     }
 }

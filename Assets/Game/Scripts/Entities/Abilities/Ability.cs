@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.Abilities
 {
+    [Serializable]
     public class AbilityModifier
     {
         public float ActionTimeModifer { get; set; }
@@ -12,6 +14,12 @@ namespace Assets.Game.Scripts.Entities.Abilities
             ActionTimeModifer = 1;
             CoolDownTimeModifer = 1;
         }
+
+        public static AbilityModifier operator +(AbilityModifier a, AbilityModifier b) => new()
+        {
+            ActionTimeModifer = a.ActionTimeModifer * b.ActionTimeModifer,
+            CoolDownTimeModifer = a.CoolDownTimeModifer * b.CoolDownTimeModifer,
+        };
     }
 
     public abstract class Ability : ScriptableObject

@@ -80,6 +80,7 @@ namespace Assets.Game.Scripts.Controllers
             gunMovement.SetLookPoint(worldPos);
         }
 
+        #region Pickups
         public void AddAbility(Ability ability, bool isPrimaryAbility)
         {
             if (isPrimaryAbility)
@@ -93,6 +94,12 @@ namespace Assets.Game.Scripts.Controllers
                 secondaryFiringController.SetAbility(ability);
             }
         }
+
+        public void AddUpgrade(TankModifiers modifiers)
+        {
+            tankData.AddModifiers(modifiers);
+        }
+        #endregion
 
         private void SetIsFiring(FiringController firingController, bool isPressed)
         {
