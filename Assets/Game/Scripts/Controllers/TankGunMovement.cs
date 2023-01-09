@@ -21,7 +21,7 @@ namespace Assets.Game.Scripts.Controllers
         {
             var targetAngle = Vector2.SignedAngle(Vector2.right, _gunDirection);
             var angle = Mathf.MoveTowardsAngle(rotationPoint.eulerAngles.z, targetAngle, _gunRotationSpeed * Time.deltaTime);
-            IsAligned = Mathf.Abs(targetAngle - angle) > ALIGNMENT_THRESHOLD;
+            IsAligned = Mathf.Abs(targetAngle - angle) < ALIGNMENT_THRESHOLD;
 
             if (!IsAligned)
             {

@@ -15,6 +15,7 @@ namespace Assets.Game.Scripts.Controllers
 
         public FiringType FiringType => firingType;
         public Vector2 FirePointDirection => firePoint.right;
+        public Transform FirePoint => firePoint;
 
         private AbilityHolder _abilityHolder;
 

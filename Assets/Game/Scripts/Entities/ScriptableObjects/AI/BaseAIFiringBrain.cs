@@ -18,7 +18,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             _selfTransform = input.SelfTransform;
         }
 
-        public abstract void Update(float deltaTime);
+        public abstract void UpdateLogic(float deltaTime);
 
     }
     public class BaseAIFiringBrainInput

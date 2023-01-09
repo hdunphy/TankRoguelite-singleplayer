@@ -4,17 +4,21 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Controllers.AI
 {
+    [RequireComponent(typeof(TankGunMovement), typeof(FiringController))]
     public class EnemyController : MonoBehaviour
     {
         [Header("Inputs")]
-        [SerializeField] private BaseAIFiringBrain firingBrain;
+        [SerializeField] private BaseAIFiringBrain firingBrainSO;
         [SerializeField] private TankData tankData;
         [Header("Controllers")]
         [SerializeField] private TankGunMovement tankGunMovement;
         [SerializeField] private FiringController primaryFiringController;
 
+        private BaseAIFiringBrain _firingBrain;
+
         private void Awake()
         {
+            _firingBrain = Instantiate(firingBrainSO);
             primaryFiringController.SetTankData(tankData);
         }
 
@@ -22,13 +26,13 @@ namespace Assets.Game.Scripts.Controllers.AI
         void Start()
         {
             tankGunMovement.SetGunRotationSpeed(tankData.GunRotationSpeed);
-            firingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
+            _firingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
         }
 
         // Update is called once per frame
         void Update()
         {
-
+            _firingBrain.UpdateLogic(Time.deltaTime);
         }
     }
 }

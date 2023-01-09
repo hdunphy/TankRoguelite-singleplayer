@@ -19,7 +19,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
         public float OnDestroyDelay => onDestroyDelay;
         public int Health => health;
 
-        public override bool CheckShot(Vector2 from, Vector2 to, int currentNumberOfBounces, float distance, ref Vector2 targetPoint, LayerMask layerMask, bool debug = false)
+        public override bool CheckShot(Vector2 from, Vector2 to, int currentNumberOfBounces, float distance, ref Vector2 targetPoint, LayerMask layerMask, string targetTag = "Player", bool debug = false)
         {
             throw new System.NotImplementedException();
         }

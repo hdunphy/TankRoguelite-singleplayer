@@ -6,7 +6,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
 {
     public class RandomAIFiringBrainInput : BaseAIFiringBrainInput
     {
-        public RandomAIFiringBrainInput(TankGunMovement tankGunMovement, FiringController firingController, Transform selfTransform) : base(tankGunMovement, firingController, selfTransform)
+        public RandomAIFiringBrainInput(TankGunMovement tankGunMovement, FiringController firingController, Transform selfTransform) 
+            : base(tankGunMovement, firingController, selfTransform)
         {
         }
     }
@@ -15,8 +16,9 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
     public class RandomAIFiringBrain : BaseAIFiringBrain
     {
         [SerializeField] private float timeBetweenMoves = 0.5f;
-        [SerializeField] private AmmoData ammoData;
-        [SerializeField] private LayerMask badTargets;
+        [SerializeField] private Shoot shootAbility;
+        [SerializeField] private LayerMask shotLayerMask;
+        [SerializeField] private bool debug;
 
         private bool hasNextShot = false;
         private float _remainingTime = 0f;
@@ -26,11 +28,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         public override void Initialize(BaseAIFiringBrainInput input)
         {
             base.Initialize(input);
+            _firingController.SetAbility(shootAbility);
 
             FindNextLookPoint();
         }
 
-        public override void Update(float deltaTime)
+        public override void UpdateLogic(float deltaTime)
         {
             _remainingTime -= deltaTime;
             if (hasNextShot && _remainingTime < 0)
@@ -45,13 +48,13 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             }
 
             Vector2 targetVector = Vector2.one;
-            var hitsAlly = ammoData.CheckShot(_selfTransform.position, _lookDirection, 0, 100, ref targetVector, badTargets);
+            var hitsAlly = shootAbility.CheckShot(_firingController.FirePoint.position, _lookDirection, 0, 100, ref targetVector, shotLayerMask, "Enemy", debug);
             _firingController.SetAbilityButtonPressed(!hitsAlly);
         }
 
         private void FindNextLookPoint()
         {
-            _lookDirection = Random.insideUnitCircle;
+            _lookDirection = Random.insideUnitCircle * 2 + (Vector2)_selfTransform.position;
             _tankGunMovement.SetLookPoint(_lookDirection);
         }
     }

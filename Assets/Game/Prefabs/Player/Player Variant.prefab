@@ -278,6 +278,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1233653653336558741, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
 --- !u!1 &6642051256475949460 stripped
@@ -302,21 +306,6 @@ MonoBehaviour:
   playerTargeter: {fileID: 486238650143983239}
   primaryFiringController: {fileID: 8394260998140653112}
   secondaryFiringController: {fileID: 7091016069350199757}
---- !u!114 &8394260998140653112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6642051256475949460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53fbedf81a441f245bd64e436f8dbbfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firePoint: {fileID: 6642051256962666068}
-  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
-  firingType: 0
 --- !u!114 &7091016069350199757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,6 +321,21 @@ MonoBehaviour:
   firePoint: {fileID: 6642051256962666068}
   ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
   firingType: 1
+--- !u!114 &8394260998140653112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642051256475949460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fbedf81a441f245bd64e436f8dbbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 6642051256962666068}
+  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
+  firingType: 0
 --- !u!4 &6642051256475949461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1233653653336558740, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
