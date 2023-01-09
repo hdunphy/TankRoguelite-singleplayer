@@ -10,12 +10,16 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         protected TankGunMovement _tankGunMovement;
         protected FiringController _firingController;
         protected Transform _selfTransform;
+        
+        [SerializeField] protected Shoot shootAbility;
 
         public virtual void Initialize(BaseAIFiringBrainInput input)
         {
             _tankGunMovement = input.TankGunMovement;
             _firingController = input.FiringController;
             _selfTransform = input.SelfTransform;
+
+            _firingController.SetAbility(shootAbility);
         }
 
         public abstract void UpdateLogic(float deltaTime);

@@ -12,11 +12,25 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         }
     }
 
+    public class BestShotAIFiringBrain : BaseAIFiringBrain
+    {
+        [SerializeField, Min(1)] private int numberOfShotsToCheck;
+        public override void UpdateLogic(float deltaTime)
+        {
+            float step = 360 / numberOfShotsToCheck;
+            for(int i = 0; i < numberOfShotsToCheck; i++)
+            {
+                var degreeOffset = i * step;
+
+                //get look direction;
+            }
+        }
+    }
+
     [CreateAssetMenu(menuName = "Data/AI/Random Firing Brain")]
     public class RandomAIFiringBrain : BaseAIFiringBrain
     {
         [SerializeField] private float timeBetweenMoves = 0.5f;
-        [SerializeField] private Shoot shootAbility;
         [SerializeField] private LayerMask shotLayerMask;
         [SerializeField] private bool debug;
 
@@ -28,7 +42,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         public override void Initialize(BaseAIFiringBrainInput input)
         {
             base.Initialize(input);
-            _firingController.SetAbility(shootAbility);
 
             FindNextLookPoint();
         }
@@ -54,8 +67,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
 
         private void FindNextLookPoint()
         {
-            _lookDirection = Random.insideUnitCircle * 2 + (Vector2)_selfTransform.position;
-            _tankGunMovement.SetLookPoint(_lookDirection);
+            _lookDirection = Random.insideUnitCircle;
+            _tankGunMovement.SetLookPoint(_lookDirection * 2 + (Vector2)_selfTransform.position);
         }
     }
 }
