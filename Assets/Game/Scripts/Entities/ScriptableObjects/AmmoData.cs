@@ -9,6 +9,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
         public int Damage => damage;
         public DamageType DamageType => damageType;
 
-        public abstract bool CheckShot(Vector2 from, Vector2 direction, int currentNumberOfBounces, float distance, ref Vector2 targetPoint, LayerMask layerMask, string targetTag, bool debug = false);
+        public abstract bool CheckShot(Vector2 from, Vector2 direction, int currentNumberOfBounces, float distance, LayerMask layerMask, string targetTag, out CheckShotOutput checkShotOutput, bool debug = false, float travelDistance = 0);
     }
 }

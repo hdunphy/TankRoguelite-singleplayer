@@ -28,7 +28,7 @@ namespace Assets.Game.Scripts.Entities.Abilities
         {
         }
 
-        public bool CheckShot(Vector2 from, Vector2 direction, int currentNumberOfBounces, float distance, ref Vector2 targetPoint, LayerMask layerMask, string targetTag = "Player", bool debug = false)
-            => ammoData.CheckShot(from, direction, currentNumberOfBounces, distance, ref targetPoint, layerMask, targetTag, debug);
+        public bool CheckShot(Vector2 from, Vector2 direction, float distance, LayerMask layerMask, out CheckShotOutput checkShotOutput, string targetTag = "Player", bool debug = false)
+            => ammoData.CheckShot(from, direction, 0, distance, layerMask, targetTag, out checkShotOutput, debug);
     }
 }

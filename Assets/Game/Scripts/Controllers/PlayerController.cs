@@ -77,7 +77,8 @@ namespace Assets.Game.Scripts.Controllers
         {
             var point = playerTargeter.TargetTransform.position;
             var worldPos = Camera.main.ScreenToWorldPoint(point);
-            gunMovement.SetLookPoint(worldPos);
+            Vector2 direction = worldPos - transform.position;
+            gunMovement.SetLookDirection(direction);
         }
 
         #region Pickups

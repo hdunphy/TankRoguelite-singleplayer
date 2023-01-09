@@ -4,7 +4,7 @@ namespace Assets.Game.Scripts.Controllers
 {
     public class TankGunMovement : MonoBehaviour
     {
-        private const float ALIGNMENT_THRESHOLD = 0.1f;
+        private const float ALIGNMENT_THRESHOLD = 1f;
         [SerializeField] private Transform rotationPoint;
 
         private float _gunRotationSpeed;
@@ -30,9 +30,9 @@ namespace Assets.Game.Scripts.Controllers
         }
 
         public void SetGunRotationSpeed(float gunRotationSpeed) => _gunRotationSpeed = gunRotationSpeed;
-        public void SetLookPoint(Vector2 point)
+
+        public void SetLookDirection(Vector2 direction)
         {
-            Vector2 direction = point - (Vector2)transform.position;
             Debug.DrawRay(transform.position, direction, Color.black, .1f);
 
             _gunDirection = direction.normalized;
