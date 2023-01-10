@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10baf4161c78b3a4cb29bcd86663941c, type: 3}
   m_Name: Best Shot Firing Brain
   m_EditorClassIdentifier: 
-  shootAbility: {fileID: 0}
-  numberOfShotsToCheck: 0
+  shootAbility: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
+  numberOfShotsToCheck: 36
+  coolDownBetweenFindShot: 0.5
   shootingLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 896
   shootWhenIsAligned: 0
-  isDebug: 0
-  hitPlayerValue: 0
-  hitEnemyValue: 0
-  hitProjectileValue: 0
-  degreeOffsetModifier: 0
-  playerDistanceModifier: 0
-  enemyDistanceModifier: 0
-  projectileDistanceModifier: 0
+  isDebug: 1
+  hitPlayerValue: 100
+  hitEnemyValue: -200
+  hitProjectileValue: 50
+  degreeOffsetModifier: 0.2
+  playerDistanceModifier: 1
+  enemyDistanceModifier: 1
+  projectileDistanceModifier: 2
   bouncesModifier: 0
