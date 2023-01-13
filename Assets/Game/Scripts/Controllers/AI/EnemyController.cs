@@ -9,6 +9,7 @@ namespace Assets.Game.Scripts.Controllers.AI
     {
         [Header("Inputs")]
         [SerializeField] private BaseAIFiringBrain firingBrainSO;
+        [SerializeField] private BaseAIMovementBrain movementBrainSO;
         [SerializeField] private TankData tankData;
         [Header("Controllers")]
         [SerializeField] private TankGunMovement tankGunMovement;
@@ -18,6 +19,7 @@ namespace Assets.Game.Scripts.Controllers.AI
 
         private void Awake()
         {
+            //TODO: Implement movementbrain
             _firingBrain = Instantiate(firingBrainSO);
             primaryFiringController.SetTankData(tankData);
         }
