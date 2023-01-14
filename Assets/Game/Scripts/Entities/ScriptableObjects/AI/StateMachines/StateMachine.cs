@@ -61,11 +61,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
     public class StateInputs
     {
-        public float PlayerDistance { get; set; }
+        public Vector2 PlayerPosition { get; set; }
 
-        public StateInputs(float playerDistance)
+        public StateInputs(Vector2 playerPosition)
         {
-            PlayerDistance = playerDistance;
+            PlayerPosition = playerPosition;
         }
     }
 }

@@ -60,7 +60,8 @@ namespace Assets.Game.Scripts.Controllers
         {
             _abilityHolder.CancelAbility();
             _abilityHolder = new(ability, gameObject, FiringType);
-            _abilityHolder.SetAbilityModifer(abilityModifier);
+            if(_tankData is not null)
+                _abilityHolder.SetAbilityModifer(abilityModifier);
 
             _ammoInPlay = 0;
         }

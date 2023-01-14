@@ -16,21 +16,13 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         {
             _target = target;
             _parent = parent;
-            _stateMachine = new(states, parent);
+            _stateMachine = new(states, _parent);
         }
 
         public virtual void UpdateLogic(float deltaTime)
         {
-            var distanceFromTarget = Vector2.Distance(_target.position, _parent.transform.position);
-            _stateMachine.Update(new(distanceFromTarget));
+            //var distanceFromTarget = Vector2.Distance(_target.position, _parent.transform.position);
+            _stateMachine.Update(new(_target.position));
         }
-    }
-
-    [CreateAssetMenu(menuName = "Data/AI/Movment/Immobile")]
-    public class ImmobileAIMovementBrain : BaseAIMovementBrain
-    {
-        public override void Initialize(GameObject parent, Transform target) { }
-
-        public override void UpdateLogic(float deltaTime) { }
     }
 }

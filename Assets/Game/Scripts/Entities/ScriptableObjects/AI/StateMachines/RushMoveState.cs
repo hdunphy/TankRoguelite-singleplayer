@@ -14,7 +14,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void Initialize(GameObject parent)
         {
-            _player = FindObjectOfType<PlayerController>();
+            _player = FindObjectOfType<PlayerController>(); //might not be the best way but whatever
 
             if (!parent.TryGetComponent(out _pathFinding))
             {

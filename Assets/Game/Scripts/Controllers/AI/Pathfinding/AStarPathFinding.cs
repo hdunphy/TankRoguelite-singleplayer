@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
@@ -13,17 +14,20 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
     {
         [SerializeField] private LayerMask obstacleMask;
 
-        [SerializeField, Tooltip("If AI is further than this follow radius it will not use AStar (for performance reasons)")]
+        [SerializeField, Tooltip("Distance from player before using player direction instead of calculating the path")]
         private float followRadius;
 
         [SerializeField, Tooltip("Distance between each waypoint check")]
         private float stepSize;
 
-        [SerializeField, Tooltip("Distance player can move before recalculating path")]
+        [SerializeField, Tooltip("If AI is further than this follow radius it will not use AStar (for performance reasons)")]
         private float distanceCheck;
 
         [SerializeField, Tooltip("Distance before moving to the next waypoint")]
         private float nextMoveCheck;
+
+        [SerializeField, Tooltip("Set the max number of steps to check before escaping the loop")]
+        private int pathIterationMax;
 
         [SerializeField, Tooltip("Radius of circle to check for physics objects. Should be radius of AI")]
         private float physicsCheckRadius = .495f;
@@ -59,14 +63,18 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
             if ((pos - target).sqrMagnitude < (followRadius * followRadius) || Path.Count == 0)
             {
+                //if player is closer than the follow radius stop pathfinding.
+                //if the path is empty stop pathfinding
                 direction = (target - pos).normalized;
             }
             else
             {
                 if ((nextMove - pos).sqrMagnitude < (nextMoveCheck * nextMoveCheck))
                 {
+                    //if the AI has gotten close enough to the next move point then pop the next checkpoint
                     nextMove = Path.Pop();
                 }
+                //use the next move to set the direction
                 direction = (nextMove - pos).normalized;
             }
 
@@ -99,9 +107,14 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
             PriorityQueue<Vector2> checkTileQueue = new();
             checkTileQueue.Add(new PriorityElement<Vector2>(currentPos, GetHueristic(currentPos)));
 
-
+            int iterations = 0;
             while (!checkTileQueue.IsEmpty())
             {
+                if(++iterations > pathIterationMax)
+                { //escape hatch so don't get stuck in a while loop
+                    break;
+                }
+
                 PriorityElement<Vector2> _CurrentElement = checkTileQueue.Dequeue();
                 if (_CurrentElement.Item.Equals(target))
                 {

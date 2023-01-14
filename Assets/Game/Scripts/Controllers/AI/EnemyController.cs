@@ -11,30 +11,37 @@ namespace Assets.Game.Scripts.Controllers.AI
         [SerializeField] private BaseAIFiringBrain firingBrainSO;
         [SerializeField] private BaseAIMovementBrain movementBrainSO;
         [SerializeField] private TankData tankData;
+
         [Header("Controllers")]
         [SerializeField] private TankGunMovement tankGunMovement;
         [SerializeField] private FiringController primaryFiringController;
 
         private BaseAIFiringBrain _firingBrain;
+        private BaseAIMovementBrain _movementBrain;
 
         private void Awake()
         {
-            //TODO: Implement movementbrain
             _firingBrain = Instantiate(firingBrainSO);
-            primaryFiringController.SetTankData(tankData);
+            _movementBrain = Instantiate(movementBrainSO);
         }
 
         // Use this for initialization
         void Start()
         {
-            tankGunMovement.SetGunRotationSpeed(tankData.GunRotationSpeed);
             _firingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
+            _movementBrain.Initialize(gameObject, FindObjectOfType<PlayerController>().transform);
+            
+            primaryFiringController.SetTankData(tankData);
+            tankGunMovement.SetGunRotationSpeed(tankData.GunRotationSpeed);
+            if (TryGetComponent(out IMovement movement))
+                movement.SetTankData(tankData);
         }
 
         // Update is called once per frame
         void Update()
         {
             _firingBrain.UpdateLogic(Time.deltaTime);
+            _movementBrain.UpdateLogic(Time.deltaTime);
         }
     }
 }

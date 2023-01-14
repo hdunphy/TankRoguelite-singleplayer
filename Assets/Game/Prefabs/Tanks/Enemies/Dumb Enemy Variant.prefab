@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firingBrainSO: {fileID: 11400000, guid: ceb6685761f04444a9243a86b09fc0b7, type: 2}
+  movementBrainSO: {fileID: 11400000, guid: 80bc0564b530e5c47afb6a1eab8a784a, type: 2}
   tankData: {fileID: 11400000, guid: d478c5608c344a34699bbc6701c3c527, type: 2}
   tankGunMovement: {fileID: 5793693225485183991}
   primaryFiringController: {fileID: 4364375576568775245}
