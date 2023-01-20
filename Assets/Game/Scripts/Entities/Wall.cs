@@ -11,6 +11,8 @@ namespace Assets.Game.Scripts.Entities
 
         public void Initialize(AmmoData data) { }
 
+        public bool WillDamage(Vector3 position) => false;
+
         private void OnDestroy()
         {
             OnDestroyed?.Invoke();
