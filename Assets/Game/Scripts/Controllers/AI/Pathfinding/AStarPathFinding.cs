@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
     public interface IPathfinding
     {
         Vector2 GetDirection();
+        void SetIsAtTarget(Func<Vector2, Vector2, bool> isAtTarget);
         void UpdatePath(Vector2 _target);
     }
 
@@ -34,14 +36,18 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
         public bool _debug;
 
-        private Stack<Vector2> Path;
-        private Vector2 nextMove;
-        private Vector2Int target;
+        private Stack<Vector2> _path;
+        private Vector2 _nextMove;
+        private Vector2Int _target;
+        private Func<Vector2, Vector2, bool> IsAtTarget;
+
+        public void SetIsAtTarget(Func<Vector2, Vector2, bool> isAtTarget) => IsAtTarget = isAtTarget;
 
         private void Awake()
         {
-            Path = new Stack<Vector2>();
-            nextMove = transform.position;
+            _path = new Stack<Vector2>();
+            _nextMove = transform.position;
+            IsAtTarget ??= (position, target) => position.Equals(target);
         }
 
         private void OnDrawGizmosSelected()
@@ -49,9 +55,9 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
             Gizmos.color = Color.black;
             if (_debug && Application.isPlaying)
             {
-                foreach (Vector2 _tile in Path)
+                foreach (Vector2 tile in _path)
                 {
-                    Gizmos.DrawSphere(_tile, .1f);
+                    Gizmos.DrawSphere(tile, .1f);
                 }
             }
         }
@@ -61,21 +67,22 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
             Vector2 direction;
             Vector2 pos = transform.position;
 
-            if ((pos - target).sqrMagnitude < (followRadius * followRadius) || Path.Count == 0)
+            //set min threshold to make direction = Vector2.zero?
+            if ((pos - _target).sqrMagnitude < (followRadius * followRadius) || _path.Count == 0)
             {
                 //if player is closer than the follow radius stop pathfinding.
                 //if the path is empty stop pathfinding
-                direction = (target - pos).normalized;
+                direction = (_target - pos).normalized;
             }
             else
             {
-                if ((nextMove - pos).sqrMagnitude < (nextMoveCheck * nextMoveCheck))
+                if ((_nextMove - pos).sqrMagnitude < (nextMoveCheck * nextMoveCheck))
                 {
                     //if the AI has gotten close enough to the next move point then pop the next checkpoint
-                    nextMove = Path.Pop();
+                    _nextMove = _path.Pop();
                 }
                 //use the next move to set the direction
-                direction = (nextMove - pos).normalized;
+                direction = (_nextMove - pos).normalized;
             }
 
             return direction;
@@ -84,9 +91,9 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
         public void UpdatePath(Vector2 _target)
         {
             Vector2Int roundedTarget = Vector2Int.RoundToInt(_target);
-            if (roundedTarget != target)
+            if (roundedTarget != this._target)
             {
-                target = roundedTarget;
+                this._target = roundedTarget;
                 float Distance = Vector2.Distance(_target, transform.position);
                 if (Distance < distanceCheck)
                     CalculatePath();
@@ -95,7 +102,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
         private void CalculatePath()
         {
-            Path.Clear();
+            _path.Clear();
             Vector2 currentPos = Vector2Int.RoundToInt(transform.position);
 
             Dictionary<Vector2, Vector2> cameFrom = new();
@@ -110,51 +117,53 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
             int iterations = 0;
             while (!checkTileQueue.IsEmpty())
             {
-                if(++iterations > pathIterationMax)
+                if (++iterations > pathIterationMax)
                 { //escape hatch so don't get stuck in a while loop
                     break;
                 }
 
-                PriorityElement<Vector2> _CurrentElement = checkTileQueue.Dequeue();
-                if (_CurrentElement.Item.Equals(target))
+                PriorityElement<Vector2> currentElement = checkTileQueue.Dequeue();
+                if (IsAtTarget(currentElement.Item, _target)) //abstract this logic out? Func<bool, Vector2>
                 {
                     break;
                 }
 
-                List<Vector2> possibleMoves = GetAdjacents(_CurrentElement.Item);
+                List<Vector2> possibleMoves = GetAdjacents(currentElement.Item);
                 foreach (Vector2 _move in possibleMoves)
                 {
-                    float cost = costSoFar[_CurrentElement.Item] + stepSize;
+                    float cost = costSoFar[currentElement.Item] + stepSize;
                     if (!costSoFar.ContainsKey(_move))
                     {
                         costSoFar.Add(_move, cost);
-                        AddPossibleMove(cost, _move, checkTileQueue, cameFrom, _CurrentElement.Item);
+                        AddPossibleMove(cost, _move, checkTileQueue, cameFrom, currentElement.Item);
                     }
                     else if (cost < costSoFar[_move])
                     {
                         costSoFar[_move] = cost;
-                        AddPossibleMove(cost, _move, checkTileQueue, cameFrom, _CurrentElement.Item);
+                        AddPossibleMove(cost, _move, checkTileQueue, cameFrom, currentElement.Item);
                     }
                 }
             }
 
-            if (cameFrom.ContainsKey(target))
+            if (cameFrom.ContainsKey(_target))
             {
                 GeneratePath(cameFrom, currentPos);
             }
         }
 
+        //private bool IsAtTarget(Vector2 position, Vector2 target) => position.Equals(target);
+
         private void GeneratePath(Dictionary<Vector2, Vector2> cameFrom, Vector2 currentPos)
         {
-            Vector2 _nextMove = target;
+            Vector2 _nextMove = _target;
             while (!_nextMove.Equals(currentPos))
             {
 
-                Path.Push(_nextMove);
+                _path.Push(_nextMove);
                 _nextMove = cameFrom[_nextMove];
             }
 
-            nextMove = transform.position;
+            this._nextMove = transform.position;
         }
 
         private void AddPossibleMove(float cost, Vector2 _move, PriorityQueue<Vector2> checkTileQueue,
@@ -196,7 +205,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
         private float GetHueristic(Vector2 currentPos)
         {
-            return Vector2.Distance(currentPos, target);
+            return Vector2.Distance(currentPos, _target);
         }
     }
 

@@ -10,6 +10,7 @@ namespace Assets.Game.Scripts.Entities
     public class Projectile : MonoBehaviour, IAmmo
     {
         [SerializeField] private ParticleSystem particleSmoke;
+        [SerializeField] private LayerMask damageableLayerMask;
 
         private Rigidbody2D _rigidbody2d;
         private ProjectileData _data;
@@ -92,5 +93,8 @@ namespace Assets.Game.Scripts.Entities
             particleSmoke.transform.parent = null;
             Destroy(particleSmoke.gameObject, 2f);
         }
+
+        public bool WillDamage(Vector3 position) => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, damageableLayerMask, "*", out CheckShotOutput shotOutput)
+                                                    && Vector2.Distance(shotOutput.RaycastHit.transform.position, position) < 0.1;
     }
 }

@@ -108,5 +108,8 @@ namespace Assets.Game.Scripts.Entities.Ammo
                 StartCoroutine(Explode());
             }
         }
+
+        public bool WillDamage(Vector3 position) => 
+            Vector2.Distance(position, transform.position) <= _data.ExplosionRadius;
     }
 }

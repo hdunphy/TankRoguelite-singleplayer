@@ -9,6 +9,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         [SerializeField] private List<BaseState> states;
 
         private StateMachine _stateMachine;
+        private Blackboard _blackboard;
         private GameObject _parent;
         private Transform _target;
 
@@ -16,13 +17,14 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         {
             _target = target;
             _parent = parent;
-            _stateMachine = new(states, _parent);
+            _blackboard = new Blackboard();
+            _stateMachine = new(states, _parent, _blackboard);
         }
 
         public virtual void UpdateLogic(float deltaTime)
         {
-            //var distanceFromTarget = Vector2.Distance(_target.position, _parent.transform.position);
-            _stateMachine.Update(new(_target.position));
+            _blackboard.PlayerPosition = _target.position;
+            _stateMachine.Update();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Game.Scripts.Entities.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -11,61 +12,24 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         private Type _currentState;
 
-        public StateMachine(List<BaseState> states, GameObject parent, Type currentState = null)
+        public StateMachine(List<BaseState> states, GameObject parent, Blackboard blackboard, Type currentState = null)
         {
             states = states.Select(state => UnityEngine.Object.Instantiate(state)).ToList();
-            states.ForEach(state => state.Initialize(parent));
+            states.ForEach(state => state.Initialize(parent, blackboard));
             _states = states.ToDictionary(s => s.GetType());
             _currentState = currentState ?? _states.Keys.First();
         }
 
-        public void Update(StateInputs inputs)
+        public void Update()
         {
-            _currentState = _states[_currentState].TrySwitchStates(inputs);
+            _currentState = _states[_currentState].TrySwitchStates();
             _states[_currentState].RunBehavior();
         }
     }
 
-    //public class StateMachineHolder : ScriptableObject
-    //{
-    //    [SerializeField] private float advanceThreshold;
-    //    [SerializeField] private float retreatThreshold;
-
-    //    public void GetState(StateInputs inputs)
-    //    {
-    //        if (inputs.BulletDetected)
-    //        {
-    //            //return avoid bullet
-    //        }
-    //        if (!inputs.CanSeePlayer)
-    //        {
-    //            //can't see player advance to see player
-    //        }
-
-    //        if (inputs.PlayerDistance < retreatThreshold)
-    //        {
-    //            //player is too close retreat
-    //        }
-    //        else if (inputs.PlayerDistance < advanceThreshold)
-    //        {
-    //            //player is good distance strafe
-    //        }
-    //        else
-    //        {
-    //            //player is far away advance
-    //        }
-    //    }
-    //}
-
-
-
-    public class StateInputs
+    public class Blackboard
     {
         public Vector2 PlayerPosition { get; set; }
-
-        public StateInputs(Vector2 playerPosition)
-        {
-            PlayerPosition = playerPosition;
-        }
+        public List<IAmmo> DangerousObjects { get; set; }
     }
 }
