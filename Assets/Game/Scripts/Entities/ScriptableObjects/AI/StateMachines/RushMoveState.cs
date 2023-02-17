@@ -90,19 +90,9 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var collisions = Physics2D.OverlapCircleAll(_parent.transform.position, bulletDetectionRadius, bulletLayerMask);
-            List<IAmmo> dangerousObjects = new();
-
-            foreach(var collision in collisions)
+            CheckForBullets();
+            if (_blackboard.DangerousObjects.Any())
             {
-                if(collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(_parent.transform.position))
-                {
-                    dangerousObjects.Add(ammo);
-                }
-            }
-            if (dangerousObjects.Any())
-            {
-                _blackboard.DangerousObjects = dangerousObjects;
                 return typeof(AvoidBulletState);
             }
 
@@ -114,6 +104,20 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             }
 
             return GetType();
+        }
+
+        private void CheckForBullets(Vector2 origin)
+        {
+            _blackboard.DangerousObjects.Clear();
+            var collisions = Physics2D.OverlapCircleAll(_parent.transform.position, bulletDetectionRadius, bulletLayerMask);
+
+            foreach (var collision in collisions)
+            {
+                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(_parent.transform.position))
+                {
+                    _blackboard.DangerousObjects.Add(ammo);
+                }
+            }
         }
     }
 
