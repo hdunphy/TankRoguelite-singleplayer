@@ -30,6 +30,5 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     public class Blackboard
     {
         public Vector2 PlayerPosition { get; set; }
-        public List<IAmmo> DangerousObjects { get; set; }
     }
 }
