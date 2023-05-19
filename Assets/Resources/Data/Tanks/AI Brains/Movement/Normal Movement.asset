@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33341828a1a80ee48a2f58ae23ef3a14, type: 3}
   m_Name: Normal Movement
   m_EditorClassIdentifier: 
-  states: []
+  states:
+  - {fileID: 11400000, guid: ff709a29e8e951b449c7cb62a3f1f44c, type: 2}
+  - {fileID: 11400000, guid: 143653e98ddfb2447ad1083292819d66, type: 2}
+  - {fileID: 11400000, guid: ddc55868cf665fe438cd5a0901879f83, type: 2}

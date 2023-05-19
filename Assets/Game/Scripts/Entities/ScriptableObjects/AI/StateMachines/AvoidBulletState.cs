@@ -4,12 +4,13 @@ using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
-    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Avoid Bullet")]
+    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Avoid Bullet"), DisplayName("Avoid")]
     public class AvoidBulletState : BaseState
     {
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;

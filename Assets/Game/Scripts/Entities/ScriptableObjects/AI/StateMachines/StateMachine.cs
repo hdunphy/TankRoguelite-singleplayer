@@ -10,20 +10,20 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     {
         private Dictionary<Type, BaseState> _states;
 
-        private Type _currentState;
+        public Type CurrentState { get; private set; }
 
         public StateMachine(List<BaseState> states, GameObject parent, Blackboard blackboard, Type currentState = null)
         {
             states = states.Select(state => UnityEngine.Object.Instantiate(state)).ToList();
             states.ForEach(state => state.Initialize(parent, blackboard));
             _states = states.ToDictionary(s => s.GetType());
-            _currentState = currentState ?? _states.Keys.First();
+            CurrentState = currentState ?? _states.Keys.First();
         }
 
         public void Update()
         {
-            _currentState = _states[_currentState].TrySwitchStates();
-            _states[_currentState].RunBehavior();
+            CurrentState = _states[CurrentState].TrySwitchStates();
+            _states[CurrentState].RunBehavior();
         }
     }
 

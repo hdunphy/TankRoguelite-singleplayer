@@ -1,12 +1,13 @@
 ﻿using Assets.Game.Scripts.Controllers;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
-    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Strafe")]
+    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Strafe"), DisplayName("Strafe")]
     public class StrafeState : BaseState
     {
         [SerializeField] private LayerMask obstacleLayerMask;

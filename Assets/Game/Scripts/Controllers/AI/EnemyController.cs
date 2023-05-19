@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Controllers.AI
 {
+
     [RequireComponent(typeof(TankGunMovement), typeof(FiringController))]
     public class EnemyController : MonoBehaviour
     {
@@ -16,21 +17,23 @@ namespace Assets.Game.Scripts.Controllers.AI
         [SerializeField] private TankGunMovement tankGunMovement;
         [SerializeField] private FiringController primaryFiringController;
 
+
         private BaseAIFiringBrain _firingBrain;
-        private BaseAIMovementBrain _movementBrain;
+        public BaseAIMovementBrain MovementBrain { get; private set; }
+
 
         private void Awake()
         {
             _firingBrain = Instantiate(firingBrainSO);
-            _movementBrain = Instantiate(movementBrainSO);
+            MovementBrain = Instantiate(movementBrainSO);
         }
 
         // Use this for initialization
         void Start()
         {
             _firingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
-            _movementBrain.Initialize(gameObject, FindObjectOfType<PlayerController>().transform);
-            
+            MovementBrain.Initialize(gameObject, FindObjectOfType<PlayerController>().transform);
+
             primaryFiringController.SetTankData(tankData);
             tankGunMovement.SetGunRotationSpeed(tankData.GunRotationSpeed);
             if (TryGetComponent(out IMovement movement))
@@ -41,7 +44,7 @@ namespace Assets.Game.Scripts.Controllers.AI
         void Update()
         {
             _firingBrain.UpdateLogic(Time.deltaTime);
-            _movementBrain.UpdateLogic(Time.deltaTime);
+            MovementBrain.UpdateLogic(Time.deltaTime);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         private Blackboard _blackboard;
         private GameObject _parent;
         private Transform _target;
+
+        public Type CurrentState => _stateMachine.CurrentState;
 
         public virtual void Initialize(GameObject parent, Transform target)
         {

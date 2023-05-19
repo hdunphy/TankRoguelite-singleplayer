@@ -1,12 +1,13 @@
 ﻿using Assets.Game.Scripts.Controllers;
 using Assets.Game.Scripts.Controllers.AI.Pathfinding;
 using System;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
 
-    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Rush State")]
+    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Rush State"), DisplayName("Rush")]
     public class RushMoveState : BaseState
     {
         private IPathfinding _pathFinding;

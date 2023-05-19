@@ -2,12 +2,13 @@
 using Assets.Game.Scripts.Controllers.AI.Pathfinding;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
-    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Advance")]
+    [CreateAssetMenu(menuName = "Data/AI/StateMachine/Advance"), DisplayName("Advance")]
     public class AdvanceMoveState : BaseState
     {
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;
