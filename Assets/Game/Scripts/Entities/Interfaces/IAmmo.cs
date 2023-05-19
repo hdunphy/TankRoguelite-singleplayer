@@ -10,6 +10,5 @@ namespace Assets.Game.Scripts.Entities.Interfaces
 
         public void Initialize(AmmoData data);
         bool WillDamage(Vector3 position);
-        Vector2 Position { get; }
     }
 }

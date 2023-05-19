@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 33341828a1a80ee48a2f58ae23ef3a14, type: 3}
-  m_Name: Normal Movement
+  m_Name: Rush Movement
   m_EditorClassIdentifier: 
-  states: []
+  states:
+  - {fileID: 11400000, guid: e7af98b3d96fbe3408c425ddc9078f15, type: 2}

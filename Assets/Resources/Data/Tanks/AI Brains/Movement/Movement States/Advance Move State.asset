@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33341828a1a80ee48a2f58ae23ef3a14, type: 3}
-  m_Name: Normal Movement
+  m_Script: {fileID: 11500000, guid: 7ab5976b34fee51418b64843accecf74, type: 3}
+  m_Name: Advance Move State
   m_EditorClassIdentifier: 
-  states: []
+  parameters: {fileID: 0}

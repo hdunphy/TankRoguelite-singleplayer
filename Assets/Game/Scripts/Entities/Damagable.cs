@@ -20,19 +20,20 @@ namespace Assets.Game.Scripts.Entities
 
         public bool TakeDamage(int damage, DamageType damageType)
         {
-            bool tookDamage = false;
-            if(affectedDamageTypes.Contains(damageType))
+            if (!affectedDamageTypes.Contains(damageType))
             {
-                CurrentHealth -= damage;
-                tookDamage = true;
-
-                if(CurrentHealth <= 0)
-                {
-                    OnDied?.Invoke();
-                }
+                return false;
             }
 
-            return tookDamage;
+
+            CurrentHealth -= damage;
+
+            if (CurrentHealth <= 0)
+            {
+                OnDied?.Invoke();
+            }
+
+            return true;
         }
     }
 }

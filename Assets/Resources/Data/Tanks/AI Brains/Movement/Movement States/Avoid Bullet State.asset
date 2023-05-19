@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81dd0186546f16b41874363d025bd75b, type: 3}
+  m_Name: Avoid Bullet State
+  m_EditorClassIdentifier: 
+  parameters: {fileID: 11400000, guid: bbfc9225c8a4a604981fec1ce056430a, type: 2}
+  exitState: {fileID: 11400000, guid: ff709a29e8e951b449c7cb62a3f1f44c, type: 2}
+  maxSearchDepth: 2
+  searchStepSize: 0.5
