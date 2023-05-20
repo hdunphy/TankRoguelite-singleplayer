@@ -6,6 +6,8 @@ namespace Assets.Game.Scripts.Controllers
     [RequireComponent(typeof(Rigidbody2D))]
     public class RBMovement : MonoBehaviour, IMovement
     {
+        [SerializeField] private bool isDebug = false;
+
         private TankData _tankData;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _normalizedDirection;
@@ -23,6 +25,14 @@ namespace Assets.Game.Scripts.Controllers
             }
 
             RotateTank();
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (!isDebug) return;
+
+            Gizmos.color = Color.black;
+            Gizmos.DrawRay(transform.position, _normalizedDirection * 2);
         }
 
         public void SetTankData(TankData tankData) => _tankData = tankData;

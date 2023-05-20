@@ -44,6 +44,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         {
             if (parameters.CheckForBullets(_bestPosition).Any())
             {
+                Debug.Log("Bullet Detected");
                 GetBestPosition();
             }
 

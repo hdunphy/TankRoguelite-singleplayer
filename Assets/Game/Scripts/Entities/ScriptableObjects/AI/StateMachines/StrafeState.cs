@@ -17,11 +17,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private IMovement _movement;
         private GameObject _parent;
         private Blackboard _blackboard;
-        private int _direction;
+        private bool _isNegativeYDireciton;
+
+        public Vector2 MovementDirection { get; private set; }
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
-            _direction = 1;
             _parent = parent;
             _blackboard = blackboard;
 
@@ -37,20 +38,19 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             Vector2 direction = _blackboard.PlayerPosition - position;
             direction.Normalize();
 
-            Vector2 desiredPosition = _blackboard.PlayerPosition + direction * moveCheckDistance;
-            Vector2 movementDirection = (desiredPosition - position) * _direction;
-            movementDirection.Normalize();
+            MovementDirection = _isNegativeYDireciton ? new Vector2(-direction.y, direction.x) : new Vector2(direction.y, -direction.x);
+            MovementDirection.Normalize();
 
-            var hit = Physics2D.Raycast(position, movementDirection, moveCheckDistance, obstacleLayerMask);
+            var hit = Physics2D.Raycast(position, MovementDirection, moveCheckDistance, obstacleLayerMask);
             // Check for obstacles in the way
             if (hit.collider != null)
             {
                 // Reverse strafing direction if there's an obstacle
-                movementDirection = -movementDirection;
-                _direction = -_direction;
+                MovementDirection = -MovementDirection;
+                _isNegativeYDireciton = !_isNegativeYDireciton;
             }
 
-            _movement.SetMovementDirection(movementDirection);
+            _movement.SetMovementDirection(MovementDirection);
         }
 
         public override Type TrySwitchStates()

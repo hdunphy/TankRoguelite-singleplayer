@@ -22,7 +22,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public void Update()
         {
-            CurrentState = _states[CurrentState].TrySwitchStates();
+            var nextState = _states[CurrentState].TrySwitchStates();
+            if (_states.ContainsKey(nextState))
+            {
+                CurrentState= nextState;
+            }
             _states[CurrentState].RunBehavior();
         }
     }
