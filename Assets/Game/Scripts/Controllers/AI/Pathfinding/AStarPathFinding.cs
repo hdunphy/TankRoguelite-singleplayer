@@ -68,11 +68,11 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
             Vector2 pos = transform.position;
 
             //set min threshold to make direction = Vector2.zero?
-            if ((pos - _target).sqrMagnitude < (followRadius * followRadius) || _path.Count == 0)
+            if (Vector2.Distance(pos, _target) < followRadius || _path.Count == 0)
             {
                 //if player is closer than the follow radius stop pathfinding.
                 //if the path is empty stop pathfinding
-                direction = (_target - pos).normalized;
+                direction = Vector2.zero;//(_target - pos).normalized;
             }
             else
             {

@@ -136,6 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSmoke: {fileID: 5177245095881853915}
+  damageableLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  projectileSize: 0.5
 --- !u!114 &6173239249994645138
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Moving Enemy Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 634856658811557468, guid: a6e8820b402822d4e88e8800b69d5f28, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a6e8820b402822d4e88e8800b69d5f28, type: 3}

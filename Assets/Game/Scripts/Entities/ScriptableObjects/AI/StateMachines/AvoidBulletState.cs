@@ -44,10 +44,18 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         {
             if (parameters.CheckForBullets(_bestPosition).Any())
             {
-                Debug.Log("Bullet Detected");
                 GetBestPosition();
+                Debug.Log($"Bullet Detected, Moving to {_bestPosition}");
             }
 
+            //var currentPosition = _parent.transform.position;
+            //if(Vector2.Distance(currentPosition, _bestPosition) < 0.1)
+            //{
+            //    _bestPosition= currentPosition;
+            //    return;
+            //}
+
+            //Debug.Log($"Best pos: {_bestPosition}");
             _pathFinding.UpdatePath(_bestPosition);
 
             var direction = _pathFinding.GetDirection();

@@ -31,8 +31,8 @@ namespace Assets.Game.Scripts.Controllers
         {
             if (!isDebug) return;
 
-            Gizmos.color = Color.black;
-            Gizmos.DrawRay(transform.position, _normalizedDirection * 2);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(transform.position, _normalizedDirection * 5);
         }
 
         public void SetTankData(TankData tankData) => _tankData = tankData;

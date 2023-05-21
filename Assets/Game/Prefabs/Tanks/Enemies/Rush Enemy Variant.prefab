@@ -96,18 +96,6 @@ MonoBehaviour:
   pathIterationMax: 100
   physicsCheckRadius: 0.2475
   _debug: 1
---- !u!114 &1855068532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 634856658811557459}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e981d632850f3744a21eb10b53d8ca2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7400914746702510307 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4475864784642213197, guid: 2af7b12554dfa3a4ab0dda9520c411f0, type: 3}

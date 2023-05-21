@@ -11,6 +11,7 @@ namespace Assets.Game.Scripts.Entities
     {
         [SerializeField] private ParticleSystem particleSmoke;
         [SerializeField] private LayerMask damageableLayerMask;
+        [SerializeField] private float projectileSize = .75f;
 
         private Rigidbody2D _rigidbody2d;
         private ProjectileData _data;
@@ -95,6 +96,6 @@ namespace Assets.Game.Scripts.Entities
         }
 
         public bool WillDamage(Vector3 position) => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, damageableLayerMask, "*", out CheckShotOutput shotOutput)
-                                                    && Vector2.Distance(shotOutput.RaycastHit.transform.position, position) < 0.1;
+                                                    && Vector2.Distance(shotOutput.RaycastHit.transform.position, position) < projectileSize;
     }
 }
