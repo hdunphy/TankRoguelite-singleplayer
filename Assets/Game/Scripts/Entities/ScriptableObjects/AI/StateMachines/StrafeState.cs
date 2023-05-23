@@ -56,7 +56,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var dangerousObjects = parameters.CheckForBullets(_parent.transform.position);
+            var dangerousObjects = parameters.CheckForBullets(_parent.transform.position, _parent);
             if (dangerousObjects.Any())
             {
                 return typeof(AvoidBulletState);

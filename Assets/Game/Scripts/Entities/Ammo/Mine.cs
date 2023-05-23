@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
+using Assets.Game.Scripts.Utilities;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -21,6 +22,8 @@ namespace Assets.Game.Scripts.Entities.Ammo
         private bool _isDetonating = false;
 
         public event Action OnDestroyed;
+
+        public Vector2 Position => transform.position;
 
         public void Initialize(AmmoData data)
         {
@@ -109,7 +112,9 @@ namespace Assets.Game.Scripts.Entities.Ammo
             }
         }
 
-        public bool WillDamage(Vector3 position) => 
+        public bool WillDamage(Vector3 position, GameObject targetedGameObject) => 
             Vector2.Distance(position, transform.position) <= _data.ExplosionRadius;
+
+        public Vector2 GetSafeDirection(Vector2 currentPosition) => currentPosition.DirectionTo(Position);
     }
 }

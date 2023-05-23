@@ -139,7 +139,9 @@ MonoBehaviour:
   damageableLayerMask:
     serializedVersion: 2
     m_Bits: 128
-  projectileSize: 0.5
+  obstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &6173239249994645138
 MonoBehaviour:
   m_ObjectHideFlags: 0

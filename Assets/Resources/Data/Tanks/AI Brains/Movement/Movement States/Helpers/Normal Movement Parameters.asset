@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abb5ec599f2a7f4e90658b349691553, type: 3}
   m_Name: Normal Movement Parameters
   m_EditorClassIdentifier: 
-  advanceThreshold: 5
-  ammoDetectionRadius: 3
+  advanceThreshold: 4
+  ammoDetectionRadius: 4
   ammoLayerMask:
     serializedVersion: 2
     m_Bits: 256

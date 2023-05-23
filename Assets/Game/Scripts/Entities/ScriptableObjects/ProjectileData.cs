@@ -6,6 +6,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
     public class ProjectileData : AmmoData
     {
         public const string ANY_TAG = "*";
+        [SerializeField] private float projectileSize;
         [SerializeField] private float projectileSpeed;
         [SerializeField, Range(0, 4)] private int numberOfBounces;
 
@@ -17,7 +18,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
             bool hitTarget = false;
 
             //Follow Raycast in direction and calculate reflection angles of bullet
-            var objectHit = Physics2D.Raycast(from, direction, distance, layerMask);
+            var objectHit = Physics2D.CircleCast(from, projectileSize, direction, distance, layerMask);
+            //var objectHit = Physics2D.Raycast(from, direction, distance, layerMask);
             checkShotOutput = new() { RaycastHit = objectHit, NumberOfBounces = currentNumberOfBounces };
 
             if (objectHit.collider != null)

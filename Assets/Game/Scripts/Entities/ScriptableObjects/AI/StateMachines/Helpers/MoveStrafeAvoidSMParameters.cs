@@ -20,14 +20,14 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
         /// </summary>
         /// <param name="origin"></param>
         /// <returns></returns>
-        public List<IAmmo> CheckForBullets(Vector3 origin)
+        public List<IAmmo> CheckForBullets(Vector3 origin, GameObject targetedGameObject)
         {
             var dangerousObjects = new List<IAmmo>();
             var collisions = Physics2D.OverlapCircleAll(origin, ammoDetectionRadius, ammoLayerMask);
 
             foreach (var collision in collisions)
             {
-                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin))
+                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin, targetedGameObject))
                 {
                     dangerousObjects.Add(ammo);
                 }

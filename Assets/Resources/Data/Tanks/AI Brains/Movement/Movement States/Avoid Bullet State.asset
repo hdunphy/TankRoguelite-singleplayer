@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters: {fileID: 11400000, guid: bbfc9225c8a4a604981fec1ce056430a, type: 2}
   exitState: {fileID: 11400000, guid: ff709a29e8e951b449c7cb62a3f1f44c, type: 2}
-  maxSearchDepth: 3
-  searchStepSize: 0.5
+  maxSearchDepth: 6
+  searchStepSize: 1

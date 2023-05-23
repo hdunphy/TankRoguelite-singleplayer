@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Utilities
 {
@@ -16,5 +17,7 @@ namespace Assets.Game.Scripts.Utilities
 
             return value;
         }
+
+        public static Vector2 DirectionTo(this Vector2 value, Vector2 target) => (target - value).normalized;
     }
 }

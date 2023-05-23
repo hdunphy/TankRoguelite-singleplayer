@@ -1,5 +1,4 @@
 ﻿using Assets.Game.Scripts.Controllers;
-using Assets.Game.Scripts.Controllers.AI.Pathfinding;
 using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
@@ -10,30 +9,22 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
+
     [CreateAssetMenu(menuName = "Data/AI/StateMachine/Avoid Bullet"), DisplayName("Avoid")]
     public class AvoidBulletState : BaseState
     {
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;
         [SerializeField] private BaseState exitState;
-        [SerializeField] private int maxSearchDepth;
-        [SerializeField] private float searchStepSize;
 
-        private IPathfinding _pathFinding;
         private IMovement _movement;
         private GameObject _parent;
-
         private List<IAmmo> _dangerousObjects;
-        private Vector3 _bestPosition;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
             _parent = parent;
-            _bestPosition = _parent.transform.position;
+            _dangerousObjects = new List<IAmmo>();
 
-            if (!parent.TryGetComponent(out _pathFinding))
-            {
-                Debug.LogError("Missing Pathfinding Component");
-            }
             if (!parent.TryGetComponent(out _movement))
             {
                 Debug.LogError("Missing Movement Component");
@@ -42,56 +33,21 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void RunBehavior()
         {
-            if (parameters.CheckForBullets(_bestPosition).Any())
-            {
-                GetBestPosition();
-                Debug.Log($"Bullet Detected, Moving to {_bestPosition}");
-            }
+            //try switch state told us there we do have dangerous objects
+            //Keep this just to ignore errors
+            if (!_dangerousObjects.Any()) return;
 
-            //var currentPosition = _parent.transform.position;
-            //if(Vector2.Distance(currentPosition, _bestPosition) < 0.1)
-            //{
-            //    _bestPosition= currentPosition;
-            //    return;
-            //}
+            Vector2 currentPosition = _parent.transform.position;
+            var closestObject = _dangerousObjects.OrderByDescending(a => Vector2.Distance(currentPosition, a.Position)).First();
 
-            //Debug.Log($"Best pos: {_bestPosition}");
-            _pathFinding.UpdatePath(_bestPosition);
+            Vector2 direction = closestObject.GetSafeDirection(currentPosition);
 
-            var direction = _pathFinding.GetDirection();
             _movement.SetMovementDirection(direction);
-
-        }
-
-        private void GetBestPosition()
-        {
-            var currentPos = _parent.transform.position;
-            int maxDangerousObjects = int.MaxValue;
-            _bestPosition = currentPos;
-            for (int i = 0; i < maxSearchDepth; i++)
-            {
-                for (int x = -1; x <= 1; x++)
-                {
-                    for (int y = -1; y <= 1; y++)
-                    {
-                        if (x == 0 && y == 0) continue;
-
-                        var position = new Vector3(x, y) * (i * searchStepSize) + currentPos;
-                        var dangerousObjectsCount = parameters.CheckForBullets(position).Count();
-
-                        if (dangerousObjectsCount < maxDangerousObjects)
-                        {
-                            maxDangerousObjects = dangerousObjectsCount;
-                            _bestPosition = position;
-                        }
-                    }
-                }
-            }
         }
 
         public override Type TrySwitchStates()
         {
-            _dangerousObjects = parameters.CheckForBullets(_parent.transform.position);
+            _dangerousObjects = parameters.CheckForBullets(_parent.transform.position, _parent);
 
             return _dangerousObjects.Any() ? GetType() : exitState.GetType();
         }
