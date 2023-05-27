@@ -16,6 +16,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
+            base.Initialize(parent, blackboard);
             _player = FindObjectOfType<PlayerController>(); //might not be the best way but whatever
 
             if (!parent.TryGetComponent(out _pathFinding))
@@ -30,6 +31,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void RunBehavior()
         {
+            _blackboard.DebugData.StateName = "Rush";
             if (_player == null) return;
 
             _pathFinding.UpdatePath(_player.transform.position);

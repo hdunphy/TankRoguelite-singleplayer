@@ -15,16 +15,13 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;
 
         private IMovement _movement;
-        private GameObject _parent;
-        private Blackboard _blackboard;
         private bool _isNegativeYDireciton;
 
         public Vector2 MovementDirection { get; private set; }
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
-            _parent = parent;
-            _blackboard = blackboard;
+            base.Initialize(parent, blackboard);
 
             if (!parent.TryGetComponent(out _movement))
             {
@@ -34,6 +31,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void RunBehavior()
         {
+            _blackboard.DebugData.StateName = "Strafe";
             Vector2 position = _parent.transform.position;
             Vector2 direction = _blackboard.PlayerPosition - position;
             direction.Normalize();

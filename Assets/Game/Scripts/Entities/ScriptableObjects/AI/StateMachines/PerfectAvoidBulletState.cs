@@ -18,14 +18,13 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         private IPathfinding _pathFinding;
         private IMovement _movement;
-        private GameObject _parent;
 
         private List<IAmmo> _dangerousObjects;
         private Vector3 _bestPosition;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
-            _parent = parent;
+            base.Initialize(parent, blackboard);
             _bestPosition = _parent.transform.position;
 
             if (!parent.TryGetComponent(out _pathFinding))
@@ -40,6 +39,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void RunBehavior()
         {
+            _blackboard.DebugData.StateName = "Perfect Avoid";
             if (parameters.CheckForBullets(_bestPosition, _parent).Any())
             {
                 GetBestPosition();

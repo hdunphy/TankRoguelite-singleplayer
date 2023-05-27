@@ -1,12 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
     public abstract class BaseState : ScriptableObject
     {
-        public abstract void Initialize(GameObject parent, Blackboard blackboard);
+        protected Blackboard _blackboard;
+        protected GameObject _parent;
+        public virtual void Initialize(GameObject parent, Blackboard blackboard)
+        {
+            _blackboard = blackboard;
+            _parent = parent;
+        }
+
         public abstract Type TrySwitchStates();
         public abstract void RunBehavior();
     }

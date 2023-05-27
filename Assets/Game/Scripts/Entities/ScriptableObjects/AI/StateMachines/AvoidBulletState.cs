@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
@@ -17,12 +18,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         [SerializeField] private BaseState exitState;
 
         private IMovement _movement;
-        private GameObject _parent;
         private List<IAmmo> _dangerousObjects;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
-            _parent = parent;
+            base.Initialize(parent, blackboard);
             _dangerousObjects = new List<IAmmo>();
 
             if (!parent.TryGetComponent(out _movement))
@@ -33,6 +33,9 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override void RunBehavior()
         {
+            _blackboard.DebugData.StateName = "Avoid";
+
+            _movement.SetMovementDirection(Vector2.zero);
             //try switch state told us there we do have dangerous objects
             //Keep this just to ignore errors
             if (!_dangerousObjects.Any()) return;

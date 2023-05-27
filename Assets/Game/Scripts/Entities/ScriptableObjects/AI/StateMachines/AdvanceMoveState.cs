@@ -16,13 +16,10 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private IPathfinding _pathFinding;
         private IMovement _movement;
         private PlayerController _player;
-        private GameObject _parent;
-        private Blackboard _blackboard;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
-            _parent = parent;
-            _blackboard = blackboard;
+            base.Initialize(parent, blackboard);
             _player = FindObjectOfType<PlayerController>(); //might not be the best way but whatever
 
             if (!parent.TryGetComponent(out _pathFinding))
@@ -34,11 +31,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
                 Debug.LogError("Missing Movement Component");
             }
 
-            _pathFinding.SetIsAtTarget((position, target) => Vector2.Distance(position, target) < parameters.AdvanceThreshold);
+            //_pathFinding.SetIsAtTarget((position, target) => Vector2.Distance(position, target) < parameters.AdvanceThreshold);
         }
 
         public override void RunBehavior()
         {
+            _blackboard.DebugData.StateName = "Advance";
             if (_player == null) return;
 
             _pathFinding.UpdatePath(_player.transform.position);
@@ -58,6 +56,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
             //if player is closer than threshold then strafe
             var distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
+            _blackboard.DebugData.Message = distance.ToString("F2");
             if (distance < parameters.AdvanceThreshold)
             {
                 return typeof(StrafeState);

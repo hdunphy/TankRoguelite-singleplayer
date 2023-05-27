@@ -67,6 +67,10 @@ PrefabInstance:
       propertyPath: movementBrainSO
       value: 
       objectReference: {fileID: 11400000, guid: 9da2df88981c12f448482eaa5f01fd0b, type: 2}
+    - target: {fileID: 7583343719734957239, guid: 2af7b12554dfa3a4ab0dda9520c411f0, type: 3}
+      propertyPath: stateMessage
+      value: 
+      objectReference: {fileID: 5030570036682071056}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2af7b12554dfa3a4ab0dda9520c411f0, type: 3}
 --- !u!1 &634856658811557459 stripped
@@ -96,6 +100,17 @@ MonoBehaviour:
   pathIterationMax: 100
   physicsCheckRadius: 0.2475
   _debug: 1
+--- !u!114 &5030570036682071056 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2123464014326931902, guid: 2af7b12554dfa3a4ab0dda9520c411f0, type: 3}
+  m_PrefabInstance: {fileID: 6388395167126175150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7400914746702510307 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4475864784642213197, guid: 2af7b12554dfa3a4ab0dda9520c411f0, type: 3}

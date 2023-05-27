@@ -14,5 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   damageType: 0
+  projectileSize: 0.2
   projectileSpeed: 5
   numberOfBounces: 1

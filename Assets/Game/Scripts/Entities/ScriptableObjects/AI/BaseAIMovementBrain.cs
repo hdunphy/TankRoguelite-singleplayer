@@ -14,7 +14,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         private GameObject _parent;
         private Transform _target;
 
-        public Type CurrentState => _stateMachine.CurrentState;
+        public Blackboard Blackboard => _blackboard;
 
         public virtual void Initialize(GameObject parent, Transform target)
         {

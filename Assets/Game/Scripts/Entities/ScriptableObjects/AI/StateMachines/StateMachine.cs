@@ -25,7 +25,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             var nextState = _states[CurrentState].TrySwitchStates();
             if (_states.ContainsKey(nextState))
             {
-                CurrentState= nextState;
+                CurrentState = nextState;
             }
             _states[CurrentState].RunBehavior();
         }
@@ -34,5 +34,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     public class Blackboard
     {
         public Vector2 PlayerPosition { get; set; }
+        public DebugData DebugData { get; } = new();
+    }
+
+    public class DebugData
+    {
+        public string StateName { get; set; } = string.Empty;
+        public string Message { get; set; } = string.Empty;
     }
 }
