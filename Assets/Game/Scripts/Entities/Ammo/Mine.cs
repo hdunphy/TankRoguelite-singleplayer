@@ -112,7 +112,7 @@ namespace Assets.Game.Scripts.Entities.Ammo
             }
         }
 
-        public bool WillDamage(Vector3 position, GameObject targetedGameObject) => 
+        public bool WillDamage(Vector3 position, GameObject targetedGameObject, LayerMask mask) => 
             Vector2.Distance(position, transform.position) <= _data.ExplosionRadius;
 
         public Vector2 GetSafeDirection(Vector2 currentPosition) => currentPosition.DirectionTo(Position);

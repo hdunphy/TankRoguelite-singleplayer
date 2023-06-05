@@ -96,8 +96,8 @@ namespace Assets.Game.Scripts.Entities
             Destroy(particleSmoke.gameObject, 2f);
         }
 
-        public bool WillDamage(Vector3 position, GameObject targetedGameObject) 
-            => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, damageableLayerMask, "*", out CheckShotOutput shotOutput)
+        public bool WillDamage(Vector3 position, GameObject targetedGameObject, LayerMask mask)
+            => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, mask, "*", out CheckShotOutput shotOutput)
                 && shotOutput.RaycastHit.collider.gameObject == targetedGameObject;
 
 

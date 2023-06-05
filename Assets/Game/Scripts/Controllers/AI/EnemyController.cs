@@ -20,12 +20,14 @@ namespace Assets.Game.Scripts.Controllers.AI
 
         private BaseAIFiringBrain _firingBrain;
         public BaseAIMovementBrain MovementBrain { get; private set; }
+        public Vector2 ColliderSize { get; private set; }
 
 
         private void Awake()
         {
             _firingBrain = Instantiate(firingBrainSO);
             MovementBrain = Instantiate(movementBrainSO);
+            ColliderSize = GetComponent<BoxCollider2D>().size;
         }
 
         // Use this for initialization

@@ -12,7 +12,7 @@ namespace Assets.Game.Scripts.Entities
 
         public void Initialize(AmmoData data) { }
 
-        public bool WillDamage(Vector3 position, GameObject targetedGameObject) => false;
+        public bool WillDamage(Vector3 position, GameObject targetedGameObject, LayerMask mask) => false;
 
         private void OnDestroy()
         {

@@ -12,6 +12,8 @@ namespace Assets.Game.Scripts.Controllers
         private Rigidbody2D _rigidbody2D;
         private Vector2 _normalizedDirection;
 
+        public Vector2 Direction => _normalizedDirection;
+
         void Awake()
         {
             _rigidbody2D= GetComponent<Rigidbody2D>();

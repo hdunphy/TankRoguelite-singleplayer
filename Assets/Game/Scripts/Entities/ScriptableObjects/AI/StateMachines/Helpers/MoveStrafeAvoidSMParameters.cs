@@ -10,6 +10,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
         [SerializeField] private float advanceThreshold;
         [SerializeField] private float ammoDetectionRadius;
         [SerializeField] private LayerMask ammoLayerMask;
+        [SerializeField] private LayerMask shadowColliderMask;
 
         public float AmmoDetectionRadius => ammoDetectionRadius;
         public LayerMask AmmoLayerMask => ammoLayerMask;
@@ -27,7 +28,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
 
             foreach (var collision in collisions)
             {
-                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin, targetedGameObject))
+                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin, targetedGameObject, shadowColliderMask))
                 {
                     dangerousObjects.Add(ammo);
                 }

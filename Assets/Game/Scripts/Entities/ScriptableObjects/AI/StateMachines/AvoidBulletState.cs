@@ -1,11 +1,11 @@
 ﻿using Assets.Game.Scripts.Controllers;
+using Assets.Game.Scripts.Controllers.AI;
 using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
@@ -19,6 +19,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         private IMovement _movement;
         private List<IAmmo> _dangerousObjects;
+        private EnemyShadowCollisionDetector _enemyShadow;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
@@ -28,6 +29,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             if (!parent.TryGetComponent(out _movement))
             {
                 Debug.LogError("Missing Movement Component");
+            }
+            _enemyShadow = parent.GetComponentInChildren<EnemyShadowCollisionDetector>();
+            if (_enemyShadow != null)
+            {
+                Debug.LogError("Missing Enemy Shadow Component");
             }
         }
 
@@ -50,7 +56,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override Type TrySwitchStates()
         {
-            _dangerousObjects = parameters.CheckForBullets(_parent.transform.position, _parent);
+            _dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _enemyShadow.gameObject);
 
             return _dangerousObjects.Any() ? GetType() : exitState.GetType();
         }

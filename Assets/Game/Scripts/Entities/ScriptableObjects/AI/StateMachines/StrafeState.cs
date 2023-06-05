@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Controllers;
+using Assets.Game.Scripts.Controllers.AI;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
 using System.ComponentModel;
@@ -16,6 +17,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         private IMovement _movement;
         private bool _isNegativeYDireciton;
+        private EnemyShadowCollisionDetector _enemyShadow;
 
         public Vector2 MovementDirection { get; private set; }
 
@@ -26,6 +28,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             if (!parent.TryGetComponent(out _movement))
             {
                 Debug.LogError("Missing Movement Component");
+            }
+            _enemyShadow = parent.GetComponentInChildren<EnemyShadowCollisionDetector>();
+            if (_enemyShadow != null)
+            {
+                Debug.LogError("Missing Enemy Shadow Component");
             }
         }
 
@@ -54,7 +61,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var dangerousObjects = parameters.CheckForBullets(_parent.transform.position, _parent);
+            var dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _enemyShadow.gameObject);
             if (dangerousObjects.Any())
             {
                 return typeof(AvoidBulletState);

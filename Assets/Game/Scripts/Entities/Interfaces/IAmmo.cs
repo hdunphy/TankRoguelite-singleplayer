@@ -12,6 +12,6 @@ namespace Assets.Game.Scripts.Entities.Interfaces
 
         Vector2 GetSafeDirection(Vector2 currentPosition);
         public void Initialize(AmmoData data);
-        bool WillDamage(Vector3 position, GameObject targetedGameObject);
+        bool WillDamage(Vector3 position, GameObject targetedGameObject, LayerMask mask);
     }
 }
