@@ -30,7 +30,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
                 Debug.LogError("Missing Movement Component");
             }
             _enemyShadow = parent.GetComponentInChildren<EnemyShadowCollisionDetector>();
-            if (_enemyShadow != null)
+            if (_enemyShadow == null)
             {
                 Debug.LogError("Missing Enemy Shadow Component");
             }
@@ -61,7 +61,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _enemyShadow.gameObject);
+            var dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
             if (dangerousObjects.Any())
             {
                 return typeof(AvoidBulletState);

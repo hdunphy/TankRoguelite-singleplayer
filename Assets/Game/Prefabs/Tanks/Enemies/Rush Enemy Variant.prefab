@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3508878096695551935}
   - component: {fileID: 7713513526162888563}
   - component: {fileID: 134741970633506432}
-  m_Layer: 7
+  m_Layer: 12
   m_Name: Shadow Movement Collision Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}

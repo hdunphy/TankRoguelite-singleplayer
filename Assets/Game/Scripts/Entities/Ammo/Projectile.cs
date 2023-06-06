@@ -98,7 +98,7 @@ namespace Assets.Game.Scripts.Entities
 
         public bool WillDamage(Vector3 position, GameObject targetedGameObject, LayerMask mask)
             => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, mask, "*", out CheckShotOutput shotOutput)
-                && shotOutput.RaycastHit.collider.gameObject == targetedGameObject;
+                && (shotOutput.RaycastHit.collider.gameObject == targetedGameObject || shotOutput.RaycastHit.collider.transform.IsChildOf(targetedGameObject.transform));
 
 
         readonly Vector2 orthoganalVector = new(-1, 1);
