@@ -16,10 +16,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     {
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;
         [SerializeField] private BaseState exitState;
+        [SerializeField] private float avoidanceSeconds = .5f;
 
         private IMovement _movement;
         private List<IAmmo> _dangerousObjects;
         private EnemyShadowCollisionDetector _enemyShadow;
+        private float secondsSafe;
 
         public override void Initialize(GameObject parent, Blackboard blackboard)
         {
@@ -41,10 +43,13 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         {
             _blackboard.DebugData.StateName = "Avoid";
 
-            _movement.SetMovementDirection(Vector2.zero);
-            //try switch state told us there we do have dangerous objects
-            //Keep this just to ignore errors
-            if (!_dangerousObjects.Any()) return;
+            if (!_dangerousObjects.Any())
+            {
+                secondsSafe += Time.deltaTime;
+                return;
+            }
+
+            secondsSafe = 0f;
 
             Vector2 currentPosition = _parent.transform.position;
             var closestObject = _dangerousObjects.OrderByDescending(a => Vector2.Distance(currentPosition, a.Position)).First();
@@ -58,7 +63,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         {
             _dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
 
-            return _dangerousObjects.Any() ? GetType() : exitState.GetType();
+            bool isSafe = !_dangerousObjects.Any() && secondsSafe >= avoidanceSeconds;
+            return isSafe ? exitState.GetType() : GetType();
         }
     }
 }
