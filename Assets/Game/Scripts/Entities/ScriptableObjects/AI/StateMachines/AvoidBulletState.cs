@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
@@ -62,6 +63,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             _dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
+            _blackboard.DebugData.Message = $"Safe: {secondsSafe}";
 
             bool isSafe = !_dangerousObjects.Any() && secondsSafe >= avoidanceSeconds;
             return isSafe ? exitState.GetType() : GetType();

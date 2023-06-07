@@ -63,7 +63,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             //if player is closer than threshold then strafe
             var distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
             _blackboard.DebugData.Message = distance.ToString("F2");
-            if (distance < parameters.AdvanceThreshold)
+            if (distance < parameters.AdvanceThreshold - parameters.AdvanceThresholdBuffer)
             {
                 return typeof(StrafeState);
             }

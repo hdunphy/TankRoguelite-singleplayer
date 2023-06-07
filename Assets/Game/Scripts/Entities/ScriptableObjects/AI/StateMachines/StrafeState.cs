@@ -1,6 +1,7 @@
 ﻿using Assets.Game.Scripts.Controllers;
 using Assets.Game.Scripts.Controllers.AI;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
+using Assets.Game.Scripts.Utilities;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     [CreateAssetMenu(menuName = "Data/AI/StateMachine/Strafe"), DisplayName("Strafe")]
     public class StrafeState : BaseState
     {
+        private const float SIZE_RADIUS = 1f;
         [SerializeField] private LayerMask obstacleLayerMask;
         [SerializeField] private float moveCheckDistance;
         [SerializeField] private MoveStrafeAvoidSMParameters parameters;
@@ -18,6 +20,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private IMovement _movement;
         private bool _isNegativeYDireciton;
         private EnemyShadowCollisionDetector _enemyShadow;
+        private float distance;
 
         public Vector2 MovementDirection { get; private set; }
 
@@ -46,7 +49,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             MovementDirection = _isNegativeYDireciton ? new Vector2(-direction.y, direction.x) : new Vector2(direction.y, -direction.x);
             MovementDirection.Normalize();
 
-            var hit = Physics2D.Raycast(position, MovementDirection, moveCheckDistance, obstacleLayerMask);
+            //Do I need to change the radius ?
+            var hit = Physics2D.CircleCast(position, SIZE_RADIUS, MovementDirection, moveCheckDistance, obstacleLayerMask);
             // Check for obstacles in the way
             if (hit.collider != null)
             {
@@ -55,6 +59,16 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
                 _isNegativeYDireciton = !_isNegativeYDireciton;
             }
 
+            float moveToThresholdPercentage = (parameters.AdvanceThreshold - distance) / parameters.AdvanceThreshold;
+            var directionFromPlayer = (Vector2)_parent.transform.position - _blackboard.PlayerPosition;
+            var shiftedDirection = MovementDirection.RotateTowards(directionFromPlayer, moveToThresholdPercentage);
+
+            var hit2 = Physics2D.CircleCast(position, SIZE_RADIUS, shiftedDirection, moveCheckDistance, obstacleLayerMask);
+            // Check for obstacles in the way
+            if (hit2.collider == null)
+            {
+                MovementDirection = shiftedDirection;
+            }
             _movement.SetMovementDirection(MovementDirection);
         }
 
@@ -68,8 +82,10 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             }
 
             //if player is closer than threshold then strafe
-            var distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
-            if (distance > parameters.AdvanceThreshold)
+            distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
+            _blackboard.DebugData.Message = distance.ToString("F2");
+
+            if (distance > parameters.AdvanceThreshold + parameters.AdvanceThresholdBuffer)
             {
                 return typeof(AdvanceMoveState);
             }

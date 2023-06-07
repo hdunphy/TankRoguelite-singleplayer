@@ -8,6 +8,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
     public class MoveStrafeAvoidSMParameters : ScriptableObject
     {
         [SerializeField] private float advanceThreshold;
+        [SerializeField] private float advanceThresholdBuffer;
         [SerializeField] private float ammoDetectionRadius;
         [SerializeField] private LayerMask ammoLayerMask;
         [SerializeField] private LayerMask shadowColliderMask;
@@ -15,6 +16,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
         public float AmmoDetectionRadius => ammoDetectionRadius;
         public LayerMask AmmoLayerMask => ammoLayerMask;
         public float AdvanceThreshold => advanceThreshold;
+        public float AdvanceThresholdBuffer => advanceThresholdBuffer;
 
         /// <summary>
         /// Returns list of dangerous objects that could affect the origin point

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Normal Movement Parameters
   m_EditorClassIdentifier: 
   advanceThreshold: 4
+  advanceThresholdBuffer: 0.5
   ammoDetectionRadius: 4
   ammoLayerMask:
     serializedVersion: 2
