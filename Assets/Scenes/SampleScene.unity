@@ -1981,10 +1981,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2899252911462960588, guid: 5b98c1596fc9b1947a84143809cc9ceb, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4956776629304042620, guid: 5b98c1596fc9b1947a84143809cc9ceb, type: 3}
       propertyPath: m_Name
       value: Moving Enemy Variant

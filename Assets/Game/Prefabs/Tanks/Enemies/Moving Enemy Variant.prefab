@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1855068531, guid: a6e8820b402822d4e88e8800b69d5f28, type: 3}
+      propertyPath: followRadius
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 270154652610583632, guid: a6e8820b402822d4e88e8800b69d5f28, type: 3}
       propertyPath: movementBrainSO
       value: 
