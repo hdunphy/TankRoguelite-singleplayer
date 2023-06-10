@@ -18,5 +18,6 @@ MonoBehaviour:
   moveSpeed: 0
   tankRotationSpeed: 0
   gunRotationSpeed: 100
-  firingBrainSO: {fileID: 11400000, guid: ceb6685761f04444a9243a86b09fc0b7, type: 2}
-  movementBrainSO: {fileID: 0}
+  primaryFiringBrainSO: {fileID: 11400000, guid: ceb6685761f04444a9243a86b09fc0b7, type: 2}
+  secondaryFiringBrainSO: {fileID: 11400000, guid: 2e46137458b5232498ad4c9b8730b78e, type: 2}
+  movementBrainSO: {fileID: 11400000, guid: 80bc0564b530e5c47afb6a1eab8a784a, type: 2}

@@ -26,7 +26,7 @@ namespace Assets.Game.Scripts.Controllers.AI
         private void Awake()
         {
             _primaryFireingBrain = Instantiate(enemyData.PrimaryFiringBrainSO);
-                _secondaryFireingBrain = Instantiate(enemyData.SecondaryFiringBrainSO);
+            _secondaryFireingBrain = Instantiate(enemyData.SecondaryFiringBrainSO);
             MovementBrain = Instantiate(enemyData.MovementBrainSO);
             ColliderSize = GetComponent<BoxCollider2D>().size;
         }
