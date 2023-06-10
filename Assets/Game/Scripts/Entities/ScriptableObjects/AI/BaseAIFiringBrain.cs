@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
 {
+
     public abstract class BaseAIFiringBrain : ScriptableObject
     {
 

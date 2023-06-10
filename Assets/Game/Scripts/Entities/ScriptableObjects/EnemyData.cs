@@ -8,12 +8,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
     public class EnemyData : TankData
     {
         [Header("AI")]
-        [SerializeField] private BaseAIFiringBrain firingBrainSO;
+        [SerializeField] private BaseAIFiringBrain primaryFiringBrainSO;
+        [SerializeField] private BaseAIFiringBrain secondaryFiringBrainSO;
         [SerializeField] private BaseAIMovementBrain movementBrainSO;
-        [SerializeField] private Ability[] abilities;
 
         public BaseAIMovementBrain MovementBrainSO => movementBrainSO;
-        public BaseAIFiringBrain FiringBrainSO => firingBrainSO;
-        public Ability[] Abilities => abilities;
+        public BaseAIFiringBrain PrimaryFiringBrainSO => primaryFiringBrainSO;
+        public BaseAIFiringBrain SecondaryFiringBrainSO => secondaryFiringBrainSO;
     }
 }
