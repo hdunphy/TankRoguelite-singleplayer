@@ -1,5 +1,4 @@
-﻿using Assets.Game.Scripts.Entities;
-using Assets.Game.Scripts.Entities.Abilities;
+﻿using Assets.Game.Scripts.Entities.Abilities;
 using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using UnityEngine;

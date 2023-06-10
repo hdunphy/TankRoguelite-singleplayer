@@ -1,4 +1,4 @@
-﻿using Assets.Game.Scripts.Entities;
+﻿using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI;
 using UnityEngine;
 

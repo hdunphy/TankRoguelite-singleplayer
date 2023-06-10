@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Scripts.Entities;
 using Assets.Game.Scripts.Entities.Abilities;
+using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Scripts.Inputs;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
