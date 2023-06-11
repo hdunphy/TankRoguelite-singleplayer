@@ -1,17 +1,7 @@
-﻿using Assets.Game.Scripts.Controllers;
-using Assets.Game.Scripts.Entities.Abilities;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
 {
-    public class RandomAIFiringBrainInput : BaseAIFiringBrainInput
-    {
-        public RandomAIFiringBrainInput(TankGunMovement tankGunMovement, FiringController firingController, Transform selfTransform) 
-            : base(tankGunMovement, firingController, selfTransform)
-        {
-        }
-    }
-
     [CreateAssetMenu(menuName = "Data/AI/Random Firing Brain")]
     public class RandomAIFiringBrain : BaseAIFiringBrain
     {

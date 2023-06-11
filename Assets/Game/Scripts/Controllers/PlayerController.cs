@@ -11,6 +11,7 @@ namespace Assets.Game.Scripts.Controllers
     {
         [Header("Data")]
         [SerializeField] private TankData tankData;
+        [SerializeField] private Ability startingAbility;
         [Header("Controls")]
         [SerializeField] private TankGunMovement gunMovement;
         [Header("Inputs")]
@@ -32,6 +33,8 @@ namespace Assets.Game.Scripts.Controllers
 
             primaryFiringController.SetTankData(tankData);
             secondaryFiringController.SetTankData(tankData);
+
+            primaryFiringController.SetAbility(startingAbility);
         }
 
         private void OnEnable()

@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tankData: {fileID: 11400000, guid: ff0a11fee020bee419129b4391a13ff6, type: 2}
+  startingAbility: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
   gunMovement: {fileID: 6642051256475949470}
   playerTargeter: {fileID: 486238650143983239}
   primaryFiringController: {fileID: 8394260998140653112}
@@ -319,7 +320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6642051256962666068}
-  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
   firingType: 1
 --- !u!114 &8394260998140653112
 MonoBehaviour:
@@ -334,7 +334,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6642051256962666068}
-  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
   firingType: 0
 --- !u!4 &6642051256475949461 stripped
 Transform:

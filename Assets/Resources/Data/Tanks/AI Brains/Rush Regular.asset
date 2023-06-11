@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3850907a18efca14baf163f6b8b8a9ea, type: 3}
+  m_Name: Rush Regular
+  m_EditorClassIdentifier: 
+  health: 1
+  startingPrimaryAmmo: 1
+  startingSecondaryAmmo: 0
+  moveSpeed: 2
+  tankRotationSpeed: 150
+  gunRotationSpeed: 150
+  primaryFiringBrainSO: {fileID: 11400000, guid: d891359367b760542ac91dc8d0196809, type: 2}
+  secondaryFiringBrainSO: {fileID: 11400000, guid: 2e46137458b5232498ad4c9b8730b78e, type: 2}
+  movementBrainSO: {fileID: 11400000, guid: 9da2df88981c12f448482eaa5f01fd0b, type: 2}

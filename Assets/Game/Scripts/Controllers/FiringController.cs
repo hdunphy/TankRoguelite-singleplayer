@@ -9,7 +9,7 @@ namespace Assets.Game.Scripts.Controllers
     public class FiringController : MonoBehaviour
     {
         [SerializeField] private Transform firePoint;
-        [SerializeField, Tooltip("Starting Ability")] private Ability ability;
+        //[SerializeField, Tooltip("Starting Ability")] private Ability ability;
         [SerializeField] private FiringType firingType;
 
         public FiringType FiringType => firingType;
@@ -27,7 +27,7 @@ namespace Assets.Game.Scripts.Controllers
 
         private void Awake()
         {
-            _abilityHolder = new AbilityHolder(ability, gameObject, FiringType);
+            _abilityHolder = new AbilityHolder(ScriptableObject.CreateInstance<EmptyAbility>(), gameObject, FiringType);
 
             _ammoInPlay = 0;
         }

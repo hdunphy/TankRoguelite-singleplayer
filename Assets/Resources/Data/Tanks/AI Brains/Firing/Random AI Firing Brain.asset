@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a50f767f24c97b4194e9f0e4e1d989a, type: 3}
   m_Name: Random AI Firing Brain
   m_EditorClassIdentifier: 
+  shootAbility: {fileID: 11400000, guid: 64bea6b4f8407c044be1d08a0b725bd6, type: 2}
   timeBetweenMoves: 0.5
-  shootAbility: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
+  visionDistance: 100
   shotLayerMask:
     serializedVersion: 2
     m_Bits: 896

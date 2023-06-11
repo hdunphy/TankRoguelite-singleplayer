@@ -22,9 +22,17 @@ namespace Assets.Game.Scripts.Entities.Abilities
         };
     }
 
+    public class EmptyAbility : Ability
+    {
+        public override void Activate(GameObject parent) { }
+
+        public override void BeginCooldown(GameObject parent) { }
+
+        public override void CancelAbility(GameObject parent) { }
+    }
+
     public abstract class Ability : ScriptableObject
     {
-        [SerializeField] private new string name; //ability name
         [SerializeField, Tooltip("How long it takes for the ability to complete")] private float actionTime;
         [SerializeField, Tooltip("How long before you can use the ability again")] private float cooldownTime;
         [SerializeField] private Sprite sprite;

@@ -496,7 +496,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 5793693225168174141}
-  ability: {fileID: 11400000, guid: ff1d31bf5a379ee45964676bf2610c71, type: 2}
   firingType: 0
 --- !u!114 &6563974153297551870
 MonoBehaviour:
@@ -510,8 +509,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 309cb1245ea19af4cb947c1c193bcb72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firingBrainSO: {fileID: 11400000, guid: ceb6685761f04444a9243a86b09fc0b7, type: 2}
-  movementBrainSO: {fileID: 11400000, guid: 80bc0564b530e5c47afb6a1eab8a784a, type: 2}
-  tankData: {fileID: 11400000, guid: d478c5608c344a34699bbc6701c3c527, type: 2}
+  enemyData: {fileID: 0}
   tankGunMovement: {fileID: 5793693225485183991}
   primaryFiringController: {fileID: 4364375576568775245}
+  secondaryFiringController: {fileID: 7369855057133659643}
+--- !u!114 &7369855057133659643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793693225485183997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fbedf81a441f245bd64e436f8dbbfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firePoint: {fileID: 5793693225168174141}
+  firingType: 1
