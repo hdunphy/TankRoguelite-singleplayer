@@ -457,6 +457,36 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: ac40fd7fca4076846a8c134343058bd0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+--- !u!212 &5793693224780360335 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1233653654238678503, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+  m_PrefabInstance: {fileID: 4717947481979922280}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5793693224889050565 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1233653654213739181, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+  m_PrefabInstance: {fileID: 4717947481979922280}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1673376691888906862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793693224889050565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59b0b804f6fd30b44867c65b338380dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 5793693224780360335}
+  - {fileID: 5793693225030071618}
+--- !u!212 &5793693225030071618 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 1233653653821035050, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+  m_PrefabInstance: {fileID: 4717947481979922280}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5793693225168174141 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1233653653955468117, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
@@ -513,6 +543,7 @@ MonoBehaviour:
   tankGunMovement: {fileID: 5793693225485183991}
   primaryFiringController: {fileID: 4364375576568775245}
   secondaryFiringController: {fileID: 7369855057133659643}
+  tankColorManipulator: {fileID: 1673376691888906862}
 --- !u!114 &7369855057133659643
 MonoBehaviour:
   m_ObjectHideFlags: 0

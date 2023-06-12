@@ -18,5 +18,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
         public BaseAIMovementBrain MovementBrainSO => movementBrainSO;
         public BaseAIFiringBrain PrimaryFiringBrainSO => primaryFiringBrainSO;
         public BaseAIFiringBrain SecondaryFiringBrainSO => secondaryFiringBrainSO;
+        public Color PrimaryColor => primaryColor;
     }
 }

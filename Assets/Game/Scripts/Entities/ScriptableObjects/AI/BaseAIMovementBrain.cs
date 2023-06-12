@@ -11,7 +11,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         [SerializeField] private List<BaseState> states;
 
         private StateMachine _stateMachine;
-        private Blackboard _blackboard;
+        protected Blackboard _blackboard;
         private GameObject _parent;
         private Transform _target;
 

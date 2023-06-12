@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.Entities.ScriptableObjects;
+﻿using Assets.Game.Scripts.Controllers.Tanks;
+using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Assets.Game.Scripts.Controllers.AI
         [SerializeField] private TankGunMovement tankGunMovement;
         [SerializeField] private FiringController primaryFiringController;
         [SerializeField] private FiringController secondaryFiringController;
-
+        [SerializeField] private TankColorManipulator tankColorManipulator;
 
         private BaseAIFiringBrain _primaryFireingBrain;
         private BaseAIFiringBrain _secondaryFireingBrain;
@@ -43,6 +44,8 @@ namespace Assets.Game.Scripts.Controllers.AI
             tankGunMovement.SetGunRotationSpeed(enemyData.GunRotationSpeed);
             if (TryGetComponent(out IMovement movement))
                 movement.SetTankData(enemyData);
+
+            tankColorManipulator.ChangeSpriteColor(enemyData.PrimaryColor);
         }
 
         // Update is called once per frame

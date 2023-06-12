@@ -8,7 +8,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
     {
         protected override SMParameters StateMachineParams => CreateInstance<EmptySMParameters>();
 
-        public override void Initialize(GameObject parent, Transform target) { }
+        public override void Initialize(GameObject parent, Transform target) => _blackboard = new();
 
         public override void UpdateLogic(float deltaTime) { }
     }

@@ -22,15 +22,6 @@ namespace Assets.Game.Scripts.Entities.Abilities
         };
     }
 
-    public class EmptyAbility : Ability
-    {
-        public override void Activate(GameObject parent) { }
-
-        public override void BeginCooldown(GameObject parent) { }
-
-        public override void CancelAbility(GameObject parent) { }
-    }
-
     public abstract class Ability : ScriptableObject
     {
         [SerializeField, Tooltip("How long it takes for the ability to complete")] private float actionTime;
