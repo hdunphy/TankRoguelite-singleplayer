@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
+using System;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
@@ -7,10 +8,12 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     {
         protected Blackboard _blackboard;
         protected GameObject _parent;
-        public virtual void Initialize(GameObject parent, Blackboard blackboard)
+        protected SMParameters _stateMachineParams;
+        public virtual void Initialize(GameObject parent, Blackboard blackboard, SMParameters stateMachineParams)
         {
             _blackboard = blackboard;
             _parent = parent;
+            _stateMachineParams = stateMachineParams;
         }
 
         public abstract Type TrySwitchStates();

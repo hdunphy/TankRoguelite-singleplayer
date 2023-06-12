@@ -7,6 +7,9 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
     [CreateAssetMenu(menuName = "Data/Enemy Tank Data")]
     public class EnemyData : TankData
     {
+        [Header("Visuals")]
+        [SerializeField] private Color primaryColor;
+
         [Header("AI")]
         [SerializeField] private BaseAIFiringBrain primaryFiringBrainSO;
         [SerializeField] private BaseAIFiringBrain secondaryFiringBrainSO;

@@ -15,8 +15,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private const float SIZE_RADIUS = 1f;
         [SerializeField] private LayerMask obstacleLayerMask;
         [SerializeField] private float moveCheckDistance;
-        [SerializeField] private MoveStrafeAvoidSMParameters parameters;
 
+        private MovementSMParameters _parameters;
         private IMovement _movement;
         private bool _isNegativeYDireciton;
         private EnemyShadowCollisionDetector _enemyShadow;
@@ -24,9 +24,15 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public Vector2 MovementDirection { get; private set; }
 
-        public override void Initialize(GameObject parent, Blackboard blackboard)
+        public override void Initialize(GameObject parent, Blackboard blackboard, SMParameters stateMachineParams)
         {
-            base.Initialize(parent, blackboard);
+            base.Initialize(parent, blackboard, stateMachineParams);
+
+            _parameters = stateMachineParams as MovementSMParameters;
+            if (_parameters == null)
+            {
+                Debug.LogError("State Machine Parameters of incorrect type");
+            }
 
             if (!parent.TryGetComponent(out _movement))
             {
@@ -59,7 +65,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
                 _isNegativeYDireciton = !_isNegativeYDireciton;
             }
 
-            float moveToThresholdPercentage = (parameters.AdvanceThreshold - distance) / parameters.AdvanceThreshold;
+            float moveToThresholdPercentage = (_parameters.AdvanceThreshold - distance) / _parameters.AdvanceThreshold;
             var directionFromPlayer = (Vector2)_parent.transform.position - _blackboard.PlayerPosition;
             var shiftedDirection = MovementDirection.RotateTowards(directionFromPlayer, moveToThresholdPercentage);
 
@@ -75,7 +81,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
+            var dangerousObjects = _parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
             if (dangerousObjects.Any())
             {
                 return typeof(AvoidBulletState);
@@ -85,7 +91,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
             _blackboard.DebugData.Message = distance.ToString("F2");
 
-            if (distance > parameters.AdvanceThreshold + parameters.AdvanceThresholdBuffer)
+            if (distance > _parameters.AdvanceThreshold + _parameters.AdvanceThresholdBuffer)
             {
                 return typeof(AdvanceMoveState);
             }

@@ -11,7 +11,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 {
     public class PerfectAvoidBulletState : BaseState
     {
-        [SerializeField] private MoveStrafeAvoidSMParameters parameters;
+        private MovementSMParameters _parameters;
         [SerializeField] private BaseState exitState;
         [SerializeField] private int maxSearchDepth;
         [SerializeField] private float searchStepSize;
@@ -22,9 +22,15 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private List<IAmmo> _dangerousObjects;
         private Vector3 _bestPosition;
 
-        public override void Initialize(GameObject parent, Blackboard blackboard)
+        public override void Initialize(GameObject parent, Blackboard blackboard, SMParameters stateMachineParams)
         {
-            base.Initialize(parent, blackboard);
+            base.Initialize(parent, blackboard, stateMachineParams);
+
+            _parameters = stateMachineParams as MovementSMParameters;
+            if (_parameters == null)
+            {
+                Debug.LogError("State Machine Parameters of incorrect type");
+            }
             _bestPosition = _parent.transform.position;
 
             if (!parent.TryGetComponent(out _pathFinding))
@@ -40,7 +46,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override void RunBehavior()
         {
             _blackboard.DebugData.StateName = "Perfect Avoid";
-            if (parameters.CheckForBullets(_bestPosition, _parent).Any())
+            if (_parameters.CheckForBullets(_bestPosition, _parent).Any())
             {
                 GetBestPosition();
                 Debug.Log($"<color=geen>Bullet Detected, Moving to {_bestPosition}</color>");
@@ -75,7 +81,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
                         if (x == 0 && y == 0) continue;
 
                         var position = new Vector3(x, y) * (i * searchStepSize) + currentPos;
-                        var dangerousObjectsCount = parameters.CheckForBullets(position, _parent).Count();
+                        var dangerousObjectsCount = _parameters.CheckForBullets(position, _parent).Count();
 
                         if (dangerousObjectsCount < maxDangerousObjects)
                         {
@@ -89,7 +95,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override Type TrySwitchStates()
         {
-            _dangerousObjects = parameters.CheckForBullets(_parent.transform.position, _parent);
+            _dangerousObjects = _parameters.CheckForBullets(_parent.transform.position, _parent);
 
             return _dangerousObjects.Any() ? GetType() : exitState.GetType();
         }

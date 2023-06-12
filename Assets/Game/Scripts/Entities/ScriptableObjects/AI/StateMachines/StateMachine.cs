@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Entities.Interfaces;
+using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,10 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public Type CurrentState { get; private set; }
 
-        public StateMachine(List<BaseState> states, GameObject parent, Blackboard blackboard, Type currentState = null)
+        public StateMachine(List<BaseState> states, GameObject parent, Blackboard blackboard, SMParameters stateMachineParams, Type currentState = null)
         {
             states = states.Select(state => UnityEngine.Object.Instantiate(state)).ToList();
-            states.ForEach(state => state.Initialize(parent, blackboard));
+            states.ForEach(state => state.Initialize(parent, blackboard, stateMachineParams));
             _states = states.ToDictionary(s => s.GetType());
             CurrentState = currentState ?? _states.Keys.First();
         }

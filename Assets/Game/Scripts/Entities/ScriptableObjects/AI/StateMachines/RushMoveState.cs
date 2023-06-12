@@ -14,9 +14,9 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private IMovement _movement;
         private PlayerController _player;
 
-        public override void Initialize(GameObject parent, Blackboard blackboard)
+        public override void Initialize(GameObject parent, Blackboard blackboard, Helpers.SMParameters stateMachineParams)
         {
-            base.Initialize(parent, blackboard);
+            base.Initialize(parent, blackboard, stateMachineParams);
             _player = FindObjectOfType<PlayerController>(); //might not be the best way but whatever
 
             if (!parent.TryGetComponent(out _pathFinding))

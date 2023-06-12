@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers
 {
     [CreateAssetMenu(menuName = "Data/AI/StateMachine/Helpers/Move Strafe Avoid Parameters")]
-    public class MoveStrafeAvoidSMParameters : ScriptableObject
+    public class MovementSMParameters : SMParameters
     {
         [SerializeField] private float advanceThreshold;
         [SerializeField] private float advanceThresholdBuffer;

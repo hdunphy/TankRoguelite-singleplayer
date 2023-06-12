@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1abb5ec599f2a7f4e90658b349691553, type: 3}
-  m_Name: Normal Movement Parameters
+  m_Name: Normal Movement Params
   m_EditorClassIdentifier: 
   advanceThreshold: 4
   advanceThresholdBuffer: 0.5

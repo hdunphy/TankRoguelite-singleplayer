@@ -18,6 +18,7 @@ MonoBehaviour:
   moveSpeed: 2
   tankRotationSpeed: 150
   gunRotationSpeed: 150
+  primaryColor: {r: 1, g: 0.64705884, b: 0, a: 1}
   primaryFiringBrainSO: {fileID: 11400000, guid: d891359367b760542ac91dc8d0196809, type: 2}
   secondaryFiringBrainSO: {fileID: 11400000, guid: 2e46137458b5232498ad4c9b8730b78e, type: 2}
   movementBrainSO: {fileID: 11400000, guid: 9da2df88981c12f448482eaa5f01fd0b, type: 2}

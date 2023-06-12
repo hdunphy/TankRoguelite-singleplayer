@@ -12,16 +12,22 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     [CreateAssetMenu(menuName = "Data/AI/StateMachine/Advance"), DisplayName("Advance")]
     public class AdvanceMoveState : BaseState
     {
-        [SerializeField] private MoveStrafeAvoidSMParameters parameters;
 
+        private MovementSMParameters _parameters;
         private IPathfinding _pathFinding;
         private IMovement _movement;
         private PlayerController _player;
         private EnemyShadowCollisionDetector _enemyShadow;
 
-        public override void Initialize(GameObject parent, Blackboard blackboard)
+        public override void Initialize(GameObject parent, Blackboard blackboard, SMParameters stateMachineParams)
         {
-            base.Initialize(parent, blackboard);
+            base.Initialize(parent, blackboard, stateMachineParams);
+
+            _parameters = stateMachineParams as MovementSMParameters;
+            if (_parameters == null)
+            {
+                Debug.LogError("State Machine Parameters of incorrect type");
+            }
             _player = FindObjectOfType<PlayerController>(); //might not be the best way but whatever
 
             if (!parent.TryGetComponent(out _pathFinding))
@@ -37,7 +43,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             {
                 Debug.LogError("Missing Enemy Shadow Component");
             }
-
         }
 
         public override void RunBehavior()
@@ -54,7 +59,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         public override Type TrySwitchStates()
         {
             //if bullet coming towards AI then switch to Avoid Bullets
-            var dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
+            var dangerousObjects = _parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
             if (dangerousObjects.Any())
             {
                 return typeof(AvoidBulletState);
@@ -63,7 +68,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             //if player is closer than threshold then strafe
             var distance = Vector2.Distance(_blackboard.PlayerPosition, _parent.transform.position);
             _blackboard.DebugData.Message = distance.ToString("F2");
-            if (distance < parameters.AdvanceThreshold - parameters.AdvanceThresholdBuffer)
+            if (distance < _parameters.AdvanceThreshold - _parameters.AdvanceThresholdBuffer)
             {
                 return typeof(StrafeState);
             }

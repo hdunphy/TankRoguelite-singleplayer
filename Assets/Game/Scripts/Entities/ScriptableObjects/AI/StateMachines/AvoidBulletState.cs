@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography;
 using TMPro.EditorUtilities;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     [CreateAssetMenu(menuName = "Data/AI/StateMachine/Avoid Bullet"), DisplayName("Avoid")]
     public class AvoidBulletState : BaseState
     {
-        [SerializeField] private MoveStrafeAvoidSMParameters parameters;
+        private MovementSMParameters _parameters;
         [SerializeField] private BaseState exitState;
         [SerializeField] private float avoidanceSeconds = .5f;
 
@@ -24,9 +25,15 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
         private EnemyShadowCollisionDetector _enemyShadow;
         private float secondsSafe;
 
-        public override void Initialize(GameObject parent, Blackboard blackboard)
+        public override void Initialize(GameObject parent, Blackboard blackboard, SMParameters stateMachineParams)
         {
-            base.Initialize(parent, blackboard);
+            base.Initialize(parent, blackboard, stateMachineParams);
+
+            _parameters = stateMachineParams as MovementSMParameters;
+            if (_parameters == null)
+            {
+                Debug.LogError("State Machine Parameters of incorrect type");
+            }
             _dangerousObjects = new List<IAmmo>();
 
             if (!parent.TryGetComponent(out _movement))
@@ -62,7 +69,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
 
         public override Type TrySwitchStates()
         {
-            _dangerousObjects = parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
+            _dangerousObjects = _parameters.CheckForBullets(_enemyShadow.transform.position, _parent);
             _blackboard.DebugData.Message = $"Safe: {secondsSafe}";
 
             bool isSafe = !_dangerousObjects.Any() && secondsSafe >= avoidanceSeconds;

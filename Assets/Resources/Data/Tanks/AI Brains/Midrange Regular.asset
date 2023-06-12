@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Midrange Regular
   m_EditorClassIdentifier: 
   health: 1
-  startingPrimaryAmmo: 1
+  startingPrimaryAmmo: 2
   startingSecondaryAmmo: 0
   moveSpeed: 2.5
   tankRotationSpeed: 150
   gunRotationSpeed: 150
+  primaryColor: {r: 1, g: 0.3019608, b: 0.3019608, a: 1}
   primaryFiringBrainSO: {fileID: 11400000, guid: d891359367b760542ac91dc8d0196809, type: 2}
   secondaryFiringBrainSO: {fileID: 11400000, guid: 2e46137458b5232498ad4c9b8730b78e, type: 2}
   movementBrainSO: {fileID: 11400000, guid: d7a99adfd8ef5064c80b516c1ce07e72, type: 2}
