@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.Entities.Interfaces;
+﻿using Assets.Game.Scripts.Controllers.Sounds;
+using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Utilities;
 using System;
@@ -18,6 +19,7 @@ namespace Assets.Game.Scripts.Entities
         private Vector2 _velocity;
         private int _currentBounces = 0;
         private bool _isDestroyed = false;
+        private AudioSource _audioSource;
 
         public event Action OnDestroyed;
         public Vector2 Position => transform.position;
@@ -25,6 +27,7 @@ namespace Assets.Game.Scripts.Entities
         private void Awake()
         {
             _rigidbody2d = GetComponent<Rigidbody2D>();
+            _audioSource = gameObject.AddComponent<AudioSource>();
         }
 
         public void OnDestroy()
@@ -43,9 +46,16 @@ namespace Assets.Game.Scripts.Entities
                 }
             }
             
-            if (!_isDestroyed && collider.TryGetComponent(out Wall _) && ++_currentBounces > _data.NumberOfBounces)
+            if (!_isDestroyed && collider.TryGetComponent(out Wall _))
             {
-                DespawnSelf();
+                if(++_currentBounces > _data.NumberOfBounces)
+                {
+                    DespawnSelf();
+                }
+                else
+                {
+                    _audioSource.Play();
+                }
             }
         }
 
@@ -73,6 +83,17 @@ namespace Assets.Game.Scripts.Entities
         {
             _data = data as ProjectileData;
             SetVelocity();
+            SetWallBounceSound();
+        }
+
+        private void SetWallBounceSound()
+        {
+            var sound = _data.WallBounceSound;
+            _audioSource.volume = sound.Volume;
+            _audioSource.pitch = sound.Pitch;
+            _audioSource.loop = sound.Loop;
+            _audioSource.clip = sound.Clip;
+            _audioSource.outputAudioMixerGroup = sound.AudioMixerGroup; //Not sure if this is accurate
         }
 
         private void DespawnSelf()
@@ -100,7 +121,7 @@ namespace Assets.Game.Scripts.Entities
             => _data.CheckShot(transform.position, _velocity, _currentBounces, 100f, mask, "*", out CheckShotOutput shotOutput)
                 && (shotOutput.RaycastHit.collider.gameObject == targetedGameObject || shotOutput.RaycastHit.collider.transform.IsChildOf(targetedGameObject.transform));
 
-
+        //This doesn't belong here move out
         readonly Vector2 orthoganalVector = new(-1, 1);
         public Vector2 GetSafeDirection(Vector2 currentPosition)
         {

@@ -17,3 +17,12 @@ MonoBehaviour:
   projectileSize: 0.2
   projectileSpeed: 5
   numberOfBounces: 1
+  wallBounceSound:
+    name: Bullet Bounce
+    Clip: {fileID: 8300000, guid: 57ad9b479b8dc0040b9bc9c7d8f347a8, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}

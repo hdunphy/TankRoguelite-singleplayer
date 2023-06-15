@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Game.Scripts.Controllers.Sounds;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects
 {
@@ -9,9 +10,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects
         [SerializeField] private float projectileSize;
         [SerializeField] private float projectileSpeed;
         [SerializeField, Range(0, 4)] private int numberOfBounces;
+        [SerializeField] private Sound wallBounceSound;
 
         public float ProjectileSpeed => projectileSpeed;
         public int NumberOfBounces => numberOfBounces;
+        public Sound WallBounceSound => wallBounceSound;
 
         public override bool CheckShot(Vector2 from, Vector2 direction, int currentNumberOfBounces, float distance, LayerMask layerMask, string targetTag, out CheckShotOutput checkShotOutput, bool debug = false, float travelDistance = 0)
         {
