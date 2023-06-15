@@ -1,5 +1,6 @@
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Game.Scripts.Controllers
 {
@@ -7,23 +8,35 @@ namespace Assets.Game.Scripts.Controllers
     public class RBMovement : MonoBehaviour, IMovement
     {
         [SerializeField] private bool isDebug = false;
+        [SerializeField] private string audioClipName;
+        [SerializeField] private UnityEvent<string, bool> onTankIsMoving;
 
         private TankData _tankData;
         private Rigidbody2D _rigidbody2D;
         private Vector2 _normalizedDirection;
+        private bool _isMoving;
 
         public Vector2 Direction => _normalizedDirection;
 
         void Awake()
         {
             _rigidbody2D= GetComponent<Rigidbody2D>();
+            _isMoving = false;
         }
 
         private void FixedUpdate()
         {
+            var isMoving = false;
             if(_normalizedDirection != Vector2.zero)
             {
+                isMoving = true;
                 _rigidbody2D.velocity = _normalizedDirection * _tankData.MoveSpeed;
+            }
+
+            if(_isMoving != isMoving)
+            {
+                _isMoving = isMoving;
+                onTankIsMoving.Invoke(audioClipName, _isMoving);
             }
 
             RotateTank();

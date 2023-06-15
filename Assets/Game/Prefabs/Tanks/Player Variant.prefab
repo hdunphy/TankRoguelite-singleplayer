@@ -284,6 +284,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+--- !u!114 &4744083886247721854 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 929360226965106303, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
+  m_PrefabInstance: {fileID: 5562964903529190657}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6642051256475949460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25dfd88aa8b3e724c8481697d4e2dd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6642051256475949460 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1233653653336558741, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}
@@ -321,6 +332,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6642051256962666068}
   firingType: 1
+  onFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4744083886247721854}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Controllers.Sounds.SoundManagerBase,
+          Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8394260998140653112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +362,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6642051256962666068}
   firingType: 0
+  onFired:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4744083886247721854}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Controllers.Sounds.SoundManagerBase,
+          Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &6642051256475949461 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1233653653336558740, guid: 3ed1b430bf593b54e96e9ae62877dfc8, type: 3}

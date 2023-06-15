@@ -2,6 +2,7 @@
 using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Assets.Game.Scripts.Controllers
 {
@@ -9,8 +10,8 @@ namespace Assets.Game.Scripts.Controllers
     public class FiringController : MonoBehaviour
     {
         [SerializeField] private Transform firePoint;
-        //[SerializeField, Tooltip("Starting Ability")] private Ability ability;
         [SerializeField] private FiringType firingType;
+        [SerializeField] private UnityEvent<string> onFired;
 
         public FiringType FiringType => firingType;
         public Vector2 FirePointDirection => firePoint.right;
@@ -37,10 +38,11 @@ namespace Assets.Game.Scripts.Controllers
             _abilityHolder.Update(Time.deltaTime);
         }
 
-        public void Fire(GameObject prefab, bool atFirePoint, AmmoData data)
+        public void Fire(GameObject prefab, bool atFirePoint, AmmoData data, string audioClipName)
         {
             var spawnTransform = atFirePoint ? firePoint : gameObject.transform;
             var instatiatedObject = Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
+            onFired.Invoke(audioClipName);
 
             if (instatiatedObject.TryGetComponent(out IAmmo ammo))
             {

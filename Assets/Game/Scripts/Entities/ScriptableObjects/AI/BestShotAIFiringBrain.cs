@@ -90,6 +90,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             float currentScore = Mathf.Abs(degreeOffset) * degreeOffsetModifier;
             if (shootAbility.CheckShot(_firingController.FirePoint.position, lookDirection, 100, shootingLayerMask, out CheckShotOutput output, ProjectileData.ANY_TAG))
             {
+                //are the hit values irrelavant? Can just use the modifier probably
                 if (output.RaycastHit.collider.TryGetComponent(out PlayerController _))
                 {
                     currentScore += hitPlayerValue / output.TravelDistance * playerDistanceModifier;

@@ -11,6 +11,7 @@ namespace Assets.Game.Scripts.Entities
         [SerializeField] private int totalHealth;
         [SerializeField] private List<DamageType> affectedDamageTypes;
         public UnityEvent OnDied;
+        [SerializeField] private UnityEvent<int> OnTakeDamage;
         public int CurrentHealth { get; private set; }
 
         private void Awake()
@@ -25,8 +26,8 @@ namespace Assets.Game.Scripts.Entities
                 return false;
             }
 
-
             CurrentHealth -= damage;
+            OnTakeDamage?.Invoke(damage);
 
             if (CurrentHealth <= 0)
             {

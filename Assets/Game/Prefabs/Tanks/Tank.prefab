@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1233653653336558746}
   - component: {fileID: 1233653653336558751}
   - component: {fileID: 1406881752781659080}
+  - component: {fileID: 929360226965106303}
   m_Layer: 7
   m_Name: Tank
   m_TagString: Untagged
@@ -97,6 +98,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebug: 0
+  audioClipName: Move
+  onTankIsMoving:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 929360226965106303}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Controllers.Sounds.SoundManagerBase,
+          Assembly-CSharp
+        m_MethodName: ToggleSound
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1233653653336558751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +145,19 @@ MonoBehaviour:
   OnDied:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 929360226965106303}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Controllers.Sounds.GameObjectSoundManager,
+          Assembly-CSharp
+        m_MethodName: SeperatePlaySoundAndDestroy
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Destroyed
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1233653653336558741}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -139,6 +170,67 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 929360226965106303}
+        m_TargetAssemblyTypeName: Assets.Game.Scripts.Controllers.Sounds.SoundManagerBase,
+          Assembly-CSharp
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hit
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &929360226965106303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1233653653336558741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25dfd88aa8b3e724c8481697d4e2dd8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - name: Move
+    Clip: {fileID: 8300000, guid: d24ee6fbf971bb84582ab81d69bbef35, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 1
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: 2945661233830472221, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
+  - name: Fire
+    Clip: {fileID: 8300000, guid: 8c67eb97169790d4a872630647910870, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
+  - name: Hit
+    Clip: {fileID: 8300000, guid: cc9fd0f11685f144c8afcddad29dc460, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
+  - name: Destroyed
+    Clip: {fileID: 8300000, guid: 82cb0dd3fccf5f14ea564eeb1ffa22cb, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
 --- !u!1 &1233653653821035044
 GameObject:
   m_ObjectHideFlags: 0
