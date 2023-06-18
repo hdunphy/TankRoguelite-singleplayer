@@ -1,5 +1,4 @@
-﻿using Assets.Game.Scripts.Controllers.Sounds;
-using Assets.Game.Scripts.Entities.Interfaces;
+﻿using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Utilities;
 using System;
@@ -83,17 +82,8 @@ namespace Assets.Game.Scripts.Entities
         {
             _data = data as ProjectileData;
             SetVelocity();
-            SetWallBounceSound();
-        }
-
-        private void SetWallBounceSound()
-        {
-            var sound = _data.WallBounceSound;
-            _audioSource.volume = sound.Volume;
-            _audioSource.pitch = sound.Pitch;
-            _audioSource.loop = sound.Loop;
-            _audioSource.clip = sound.Clip;
-            _audioSource.outputAudioMixerGroup = sound.AudioMixerGroup; //Not sure if this is accurate
+            _data.WallBounceSound.AddToSource(_audioSource);
+            _audioSource.PlayOneShot(_data.InitializedSound.Clip, _data.InitializedSound.Volume);
         }
 
         private void DespawnSelf()

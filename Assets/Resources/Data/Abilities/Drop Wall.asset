@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdb5f05a9c15e0047a5a72f450b79d09, type: 3}
   m_Name: Drop Wall
   m_EditorClassIdentifier: 
-  name: Drop Wall
   actionTime: 0.5
   cooldownTime: 3
   sprite: {fileID: 21300000, guid: 14e35c0c727319449844674258f2894b, type: 3}
   ammoPrefab: {fileID: 7779044255460853159, guid: 2d934df12ceec4040a19884b5d5ae56c, type: 3}
   spawnAtFirePoint: 1
-  ammoData: {fileID: 0}
+  ammoData: {fileID: 11400000, guid: 6c4a0236695672d4a91b81313eb651db, type: 2}

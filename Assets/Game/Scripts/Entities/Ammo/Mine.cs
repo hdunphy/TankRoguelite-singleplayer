@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.Entities.Interfaces;
+﻿using Assets.Game.Scripts.Controllers.Sounds;
+using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Utilities;
 using System;
@@ -13,6 +14,9 @@ namespace Assets.Game.Scripts.Entities.Ammo
         [SerializeField] private GameObject explosion;
         [SerializeField] private SpriteRenderer spriteRenderer;
 
+        [SerializeField] private Sound explosionSound;
+        [SerializeField] private Sound timerCountdownSound;
+
         [SerializeField] private Color flashColor;
         [SerializeField] private float flashTime;
 
@@ -20,6 +24,8 @@ namespace Assets.Game.Scripts.Entities.Ammo
         private float _detonationTime;
         private float _timerDelay;
         private bool _isDetonating = false;
+        private AudioSource _audioSourceExplosion;
+        private AudioSource _audioSourceTimer;
 
         public event Action OnDestroyed;
 
@@ -31,7 +37,17 @@ namespace Assets.Game.Scripts.Entities.Ammo
             _detonationTime = _data.TimerDelay + Time.time;
             _timerDelay = _data.TimerDelay;
 
+            _audioSourceExplosion.PlayOneShot(_data.InitializedSound.Clip, _data.InitializedSound.Volume);
             StartCoroutine(Flash());
+        }
+
+        private void Awake()
+        {
+            _audioSourceExplosion = gameObject.AddComponent<AudioSource>();
+            _audioSourceTimer = gameObject.AddComponent<AudioSource>();
+
+            explosionSound.AddToSource(_audioSourceExplosion);
+            timerCountdownSound.AddToSource(_audioSourceTimer);
         }
 
         private void OnDestroy()
@@ -56,6 +72,7 @@ namespace Assets.Game.Scripts.Entities.Ammo
             {
                 yield return new WaitForSeconds(interval);
                 spriteRenderer.color = flashColor;
+                _audioSourceTimer.Play();
                 yield return new WaitForSeconds(flashTime);
                 spriteRenderer.color = startColor;
             }
@@ -64,6 +81,8 @@ namespace Assets.Game.Scripts.Entities.Ammo
             {
                 yield return new WaitForSeconds(flashTime);
                 spriteRenderer.color = flashColor;
+                _audioSourceTimer.Play();
+                //pitch/vol increase?
                 yield return new WaitForSeconds(flashTime);
                 spriteRenderer.color = startColor;
             }
@@ -73,6 +92,7 @@ namespace Assets.Game.Scripts.Entities.Ammo
         {
             _isDetonating = true;
             ExplodeParticleEffect();
+            _audioSourceExplosion.Play();
 
             DealDamage(_data.ExplosionInnerRadius);
 

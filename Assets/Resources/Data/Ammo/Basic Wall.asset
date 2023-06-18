@@ -9,23 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88544aadd83026745aa9ece2a5409746, type: 3}
-  m_Name: Mine
+  m_Script: {fileID: 11500000, guid: 4ca6deb50271ae949aad68073363fac2, type: 3}
+  m_Name: Basic Wall
   m_EditorClassIdentifier: 
-  damage: 2
-  damageType: 1
+  damage: 0
+  damageType: 0
   initializedSound:
     name: Fire
-    Clip: {fileID: 8300000, guid: fb0f761ee92c58a46b1351c28d3655af, type: 3}
+    Clip: {fileID: 8300000, guid: afbf401ce11853d46afae85723fdd32f, type: 3}
     Volume: 1
     Pitch: 1
     Loop: 0
     PlayOnStart: 0
     AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
     AudioSource: {fileID: 0}
-  timerDelay: 1.5
-  explosionRadius: 1.2
-  explosionInnerRadius: 0.25
-  explosionOuterDelay: 0.25
-  onDestroyDelay: 0.5
-  health: 1

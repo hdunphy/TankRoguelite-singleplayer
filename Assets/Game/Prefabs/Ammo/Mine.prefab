@@ -81,6 +81,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &6677319632137413045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95,6 +98,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosion: {fileID: 4306811087802864539}
   spriteRenderer: {fileID: 5217650052048691326}
+  explosionSound:
+    name: Explosion
+    Clip: {fileID: 8300000, guid: d6a4630d3b7f7684e8fba1fab39bf05b, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
+  timerCountdownSound:
+    name: Explosion
+    Clip: {fileID: 8300000, guid: e0cdb80ebb240b84fa3e72d5801b92db, type: 3}
+    Volume: 1
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
   flashColor: {r: 1, g: 0, b: 0, a: 1}
   flashTime: 0.05
 --- !u!1 &4048463777204585798

@@ -38,11 +38,10 @@ namespace Assets.Game.Scripts.Controllers
             _abilityHolder.Update(Time.deltaTime);
         }
 
-        public void Fire(GameObject prefab, bool atFirePoint, AmmoData data, string audioClipName)
+        public void Fire(GameObject prefab, bool atFirePoint, AmmoData data)
         {
             var spawnTransform = atFirePoint ? firePoint : gameObject.transform;
             var instatiatedObject = Instantiate(prefab, spawnTransform.position, spawnTransform.rotation);
-            onFired.Invoke(audioClipName);
 
             if (instatiatedObject.TryGetComponent(out IAmmo ammo))
             {

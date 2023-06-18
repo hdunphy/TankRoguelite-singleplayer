@@ -10,7 +10,6 @@ namespace Assets.Game.Scripts.Entities.Abilities
     {
         [SerializeField, Tooltip("Prefab to be instatiated when ability is triggerd")] private GameObject ammoPrefab;
         [SerializeField] private bool spawnAtFirePoint;
-        [SerializeField] private string audioClipName = "Fire";
         [SerializeField] private AmmoData ammoData;
 
         public override void Activate(GameObject parent)
@@ -18,7 +17,7 @@ namespace Assets.Game.Scripts.Entities.Abilities
             //TODO: need to determine primary vs secondary
             parent.GetComponents<FiringController>()
                 .FirstOrDefault(x => x.FiringType == ((FiringType)Parameter) && x.enabled)
-                ?.Fire(ammoPrefab, spawnAtFirePoint, ammoData, audioClipName);
+                ?.Fire(ammoPrefab, spawnAtFirePoint, ammoData);
         }
 
         public override void BeginCooldown(GameObject parent)

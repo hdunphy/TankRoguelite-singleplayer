@@ -14,6 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   damageType: 0
+  initializedSound:
+    name: Fire
+    Clip: {fileID: 8300000, guid: 5c160853fb0bdc44d83ef8c6421605da, type: 3}
+    Volume: 0.25
+    Pitch: 1
+    Loop: 0
+    PlayOnStart: 0
+    AudioMixerGroup: {fileID: -881742793936180395, guid: f7fe58c38a808c84894c40d67f4dec41, type: 2}
+    AudioSource: {fileID: 0}
   projectileSize: 0.2
   projectileSpeed: 5
   numberOfBounces: 1

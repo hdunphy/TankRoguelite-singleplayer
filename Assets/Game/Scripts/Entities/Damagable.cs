@@ -27,11 +27,14 @@ namespace Assets.Game.Scripts.Entities
             }
 
             CurrentHealth -= damage;
-            OnTakeDamage?.Invoke(damage);
 
             if (CurrentHealth <= 0)
             {
                 OnDied?.Invoke();
+            }
+            else
+            {
+                OnTakeDamage?.Invoke(damage);
             }
 
             return true;

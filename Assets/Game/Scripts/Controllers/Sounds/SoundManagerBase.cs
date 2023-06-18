@@ -28,6 +28,16 @@ namespace Assets.Game.Scripts.Controllers.Sounds
 
         [HideInInspector]
         public AudioSource AudioSource;
+
+
+        public void AddToSource(AudioSource audioSource)
+        {
+            audioSource.volume = Volume;
+            audioSource.pitch = Pitch;
+            audioSource.loop = Loop;
+            audioSource.clip = Clip;
+            audioSource.outputAudioMixerGroup = AudioMixerGroup;
+        }
     }
 
     public abstract class SoundManagerBase : MonoBehaviour
