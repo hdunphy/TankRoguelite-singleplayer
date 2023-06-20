@@ -2149,6 +2149,8 @@ MonoBehaviour:
   enemySpawns:
   - EnemyData: {fileID: 11400000, guid: b290c57af6dfc0247a94aea93986af45, type: 2}
     SpawnPosition: {x: -5, y: 2, z: 0}
+  - EnemyData: {fileID: 11400000, guid: a118a41f539781e4883a5a5c211bbc8b, type: 2}
+    SpawnPosition: {x: -5, y: -2, z: 0}
 --- !u!4 &1762716356
 Transform:
   m_ObjectHideFlags: 0
