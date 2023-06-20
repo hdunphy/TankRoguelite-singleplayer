@@ -23,32 +23,49 @@ namespace Assets.Game.Scripts.Controllers.AI
         public BaseAIMovementBrain MovementBrain { get; private set; }
         public Vector2 ColliderSize { get; private set; }
 
+        private EnemyData _enemyData;
+
+        public void SetEnemyData(EnemyData enemyData)
+        {
+            _enemyData = enemyData;
+            SetupFiring();
+            SetUpMovement();
+        }
 
         private void Awake()
         {
-            _primaryFireingBrain = Instantiate(enemyData.PrimaryFiringBrainSO);
-            _secondaryFireingBrain = Instantiate(enemyData.SecondaryFiringBrainSO);
-            MovementBrain = Instantiate(enemyData.MovementBrainSO);
             ColliderSize = GetComponent<BoxCollider2D>().size;
+
+            if (enemyData == null) return;
+
+            SetEnemyData(enemyData);
         }
 
-        // Use this for initialization
-        void Start()
+        private void SetUpMovement()
         {
-            _primaryFireingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
-            _secondaryFireingBrain.Initialize(new(tankGunMovement, secondaryFiringController, transform));
+            MovementBrain = Instantiate(_enemyData.MovementBrainSO);
+
             MovementBrain.Initialize(gameObject, FindObjectOfType<PlayerController>().transform);
 
-            primaryFiringController.SetTankData(enemyData);
-            secondaryFiringController.SetTankData(enemyData);
-            tankGunMovement.SetGunRotationSpeed(enemyData.GunRotationSpeed);
+            tankGunMovement.SetGunRotationSpeed(_enemyData.GunRotationSpeed);
             if (TryGetComponent(out IMovement movement))
-                movement.SetTankData(enemyData);
+                movement.SetTankData(_enemyData);
 
-            tankColorManipulator.ChangeSpriteColor(enemyData.PrimaryColor);
+            tankColorManipulator.ChangeSpriteColor(_enemyData.PrimaryColor);
         }
 
-        // Update is called once per frame
+        private void SetupFiring()
+        {
+            _primaryFireingBrain = Instantiate(_enemyData.PrimaryFiringBrainSO);
+            _secondaryFireingBrain = Instantiate(_enemyData.SecondaryFiringBrainSO);
+
+            _primaryFireingBrain.Initialize(new(tankGunMovement, primaryFiringController, transform));
+            _secondaryFireingBrain.Initialize(new(tankGunMovement, secondaryFiringController, transform));
+
+            primaryFiringController.SetTankData(_enemyData);
+            secondaryFiringController.SetTankData(_enemyData);
+        }
+
         void Update()
         {
             _primaryFireingBrain.UpdateLogic(Time.deltaTime);

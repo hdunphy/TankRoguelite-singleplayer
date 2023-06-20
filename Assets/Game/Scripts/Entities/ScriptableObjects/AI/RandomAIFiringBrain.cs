@@ -39,10 +39,10 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             var hitsAlly = shootAbility.CheckShot(_firingController.FirePoint.position, _lookDirection, visionDistance, shotLayerMask, out CheckShotOutput output, "Enemy", debug);
             _firingController.SetAbilityButtonPressed(!hitsAlly);
 
-            if (output.RaycastHit.collider != null && output.RaycastHit.collider.CompareTag("Player"))
-            {
-                Debug.Log($"Fire at player: {hitsAlly}");
-            }
+            //if (output.RaycastHit.collider != null && output.RaycastHit.collider.CompareTag("Player"))
+            //{
+            //    Debug.Log($"Fire at player: {hitsAlly}");
+            //}
         }
 
         private void FindNextLookPoint()
