@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.Entities.Interfaces;
+﻿using Assets.Game.Scripts.Controllers.Manager;
+using Assets.Game.Scripts.Entities.Interfaces;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,11 +11,8 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
         [SerializeField] private float advanceThreshold;
         [SerializeField] private float advanceThresholdBuffer;
         [SerializeField] private float ammoDetectionRadius;
-        [SerializeField] private LayerMask ammoLayerMask;
-        [SerializeField] private LayerMask shadowColliderMask;
 
         public float AmmoDetectionRadius => ammoDetectionRadius;
-        public LayerMask AmmoLayerMask => ammoLayerMask;
         public float AdvanceThreshold => advanceThreshold;
         public float AdvanceThresholdBuffer => advanceThresholdBuffer;
 
@@ -26,11 +24,11 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helper
         public List<IAmmo> CheckForBullets(Vector3 origin, GameObject targetedGameObject)
         {
             var dangerousObjects = new List<IAmmo>();
-            var collisions = Physics2D.OverlapCircleAll(origin, ammoDetectionRadius, ammoLayerMask);
+            var collisions = Physics2D.OverlapCircleAll(origin, ammoDetectionRadius, LayerMaskSingleton.Instance.ProjectileLayers);
 
             foreach (var collision in collisions)
             {
-                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin, targetedGameObject, shadowColliderMask))
+                if (collision.TryGetComponent(out IAmmo ammo) && ammo.WillDamage(origin, targetedGameObject, LayerMaskSingleton.Instance.ShadowColliderLayers))
                 {
                     dangerousObjects.Add(ammo);
                 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Game.Scripts.Controllers.Manager;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
     public class AStarPathFinding : MonoBehaviour, IPathfinding
     {
-        [SerializeField] private LayerMask obstacleMask;
+        //[SerializeField] private LayerMask obstacleMask;
 
         [SerializeField, Tooltip("Distance from player before using player direction instead of calculating the path")]
         private float followRadius;
@@ -183,7 +184,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
         private List<Vector2> GetAdjacents(Vector2 currentTile)
         {
-            List<Vector2> adjacents = new List<Vector2>();
+            List<Vector2> adjacents = new();
             for (float i = -stepSize; i <= stepSize; i += stepSize)
             {
                 for (float j = -stepSize; j <= stepSize; j += stepSize)
@@ -192,7 +193,7 @@ namespace Assets.Game.Scripts.Controllers.AI.Pathfinding
 
                     if (!(i == 0 && j == 0))
                     {
-                        if (!Physics2D.OverlapCircle(_tile, physicsCheckRadius, obstacleMask))
+                        if (!Physics2D.OverlapCircle(_tile, physicsCheckRadius, LayerMaskSingleton.Instance.ObstacleLayers))
                         {
                             adjacents.Add(_tile);
                         }

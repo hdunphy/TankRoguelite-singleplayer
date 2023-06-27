@@ -1,4 +1,5 @@
-﻿using Assets.Game.Scripts.Entities.Interfaces;
+﻿using Assets.Game.Scripts.Controllers.Manager;
+using Assets.Game.Scripts.Entities.Interfaces;
 using Assets.Game.Scripts.Entities.ScriptableObjects;
 using Assets.Game.Scripts.Utilities;
 using System;
@@ -10,7 +11,6 @@ namespace Assets.Game.Scripts.Entities
     public class Projectile : MonoBehaviour, IAmmo
     {
         [SerializeField] private ParticleSystem particleSmoke;
-        [SerializeField] private LayerMask obstacleLayerMask; //Add a singleton of the layermasks
 
         private Rigidbody2D _rigidbody2d;
         private ProjectileData _data;
@@ -117,7 +117,7 @@ namespace Assets.Game.Scripts.Entities
             var direction = currentPosition.DirectionTo(Position);
             var safeDirection = direction * orthoganalVector;
 
-            var hit = Physics2D.Raycast(currentPosition, safeDirection, 1f, obstacleLayerMask);
+            var hit = Physics2D.Raycast(currentPosition, safeDirection, 1f, LayerMaskSingleton.Instance.WallLayer);
             // Check for obstacles in the way
             if (hit.collider != null)
             {
@@ -125,7 +125,7 @@ namespace Assets.Game.Scripts.Entities
                 safeDirection = -safeDirection;
             }
 
-            var hit2 = Physics2D.Raycast(currentPosition, safeDirection, 1f, obstacleLayerMask);
+            var hit2 = Physics2D.Raycast(currentPosition, safeDirection, 1f, LayerMaskSingleton.Instance.WallLayer);
             // Check for obstacles in the way
             if (hit2.collider != null)
             {

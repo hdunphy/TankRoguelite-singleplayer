@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Scripts.Controllers;
 using Assets.Game.Scripts.Controllers.AI;
+using Assets.Game.Scripts.Controllers.Manager;
 using Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines.Helpers;
 using Assets.Game.Scripts.Utilities;
 using System;
@@ -13,7 +14,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
     public class StrafeState : BaseState
     {
         private const float SIZE_RADIUS = 1f;
-        [SerializeField] private LayerMask obstacleLayerMask;
         [SerializeField] private float moveCheckDistance;
 
         private MovementSMParameters _parameters;
@@ -56,7 +56,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             MovementDirection.Normalize();
 
             //Do I need to change the radius ?
-            var hit = Physics2D.CircleCast(position, SIZE_RADIUS, MovementDirection, moveCheckDistance, obstacleLayerMask);
+            var hit = Physics2D.CircleCast(position, SIZE_RADIUS, MovementDirection, moveCheckDistance, LayerMaskSingleton.Instance.WallLayer);
             // Check for obstacles in the way
             if (hit.collider != null)
             {
@@ -69,7 +69,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI.StateMachines
             var directionFromPlayer = (Vector2)_parent.transform.position - _blackboard.PlayerPosition;
             var shiftedDirection = MovementDirection.RotateTowards(directionFromPlayer, moveToThresholdPercentage);
 
-            var hit2 = Physics2D.CircleCast(position, SIZE_RADIUS, shiftedDirection, moveCheckDistance, obstacleLayerMask);
+            var hit2 = Physics2D.CircleCast(position, SIZE_RADIUS, shiftedDirection, moveCheckDistance, LayerMaskSingleton.Instance.WallLayer);
             // Check for obstacles in the way
             if (hit2.collider == null)
             {

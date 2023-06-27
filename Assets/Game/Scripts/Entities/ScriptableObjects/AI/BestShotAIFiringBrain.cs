@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Scripts.Controllers;
 using Assets.Game.Scripts.Controllers.AI;
+using Assets.Game.Scripts.Controllers.Manager;
 using Assets.Game.Scripts.Utilities;
 using UnityEngine;
 
@@ -11,7 +12,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
         [Header("Parameters")]
         [SerializeField, Min(1)] private int numberOfShotsToCheck;
         [SerializeField, Min(0)] private float coolDownBetweenFindShot;
-        [SerializeField] private LayerMask shootingLayerMask;
         [SerializeField] private bool shootWhenIsAligned;
         [SerializeField] private bool isDebug;
 
@@ -47,7 +47,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             {
                 _firingController.SetAbilityButtonPressed(true);
             }
-            else if (!shootWhenIsAligned && shootAbility.CheckShot(_firingController.FirePoint.position, _firingController.FirePointDirection, 100, shootingLayerMask, out CheckShotOutput _))
+            else if (!shootWhenIsAligned && shootAbility.CheckShot(_firingController.FirePoint.position, _firingController.FirePointDirection, 100, LayerMaskSingleton.Instance.ShootingLayers, out CheckShotOutput _))
             {
                 _firingController.SetAbilityButtonPressed(true);
             }
@@ -88,7 +88,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
             var lookDirection = _firingController.FirePointDirection.Rotate(degreeOffset);
 
             float currentScore = Mathf.Abs(degreeOffset) * degreeOffsetModifier;
-            if (shootAbility.CheckShot(_firingController.FirePoint.position, lookDirection, 100, shootingLayerMask, out CheckShotOutput output, ProjectileData.ANY_TAG))
+            if (shootAbility.CheckShot(_firingController.FirePoint.position, lookDirection, 100, LayerMaskSingleton.Instance.ShootingLayers, out CheckShotOutput output, ProjectileData.ANY_TAG))
             {
                 //are the hit values irrelavant? Can just use the modifier probably
                 if (output.RaycastHit.collider.TryGetComponent(out PlayerController _))

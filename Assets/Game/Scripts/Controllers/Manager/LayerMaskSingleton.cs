@@ -16,5 +16,11 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
         [SerializeField, Tooltip("Projectiles")] private LayerMask projectileLayers;
         [SerializeField, Tooltip("Tanks and Shadow Colliders")] private LayerMask shadowColliderLayers;
+
+        public LayerMask WallLayer => wallLayer;
+        public LayerMask ObstacleLayers => obstacleLayers;
+        public LayerMask ShootingLayers => shootingLayers;
+        public LayerMask ProjectileLayers => projectileLayers;
+        public LayerMask ShadowColliderLayers => shadowColliderLayers;
     }
 }

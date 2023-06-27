@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Game.Scripts.Controllers.Manager;
+using UnityEngine;
 
 namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
 {
@@ -7,7 +8,6 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
     {
         [SerializeField] private float timeBetweenMoves = 0.5f;
         [SerializeField] private float visionDistance = 100f;
-        [SerializeField] private LayerMask shotLayerMask;
         [SerializeField] private bool debug;
 
         private bool hasNextShot = false;
@@ -36,7 +36,7 @@ namespace Assets.Game.Scripts.Entities.ScriptableObjects.AI
                 hasNextShot = true;
             }
 
-            var hitsAlly = shootAbility.CheckShot(_firingController.FirePoint.position, _lookDirection, visionDistance, shotLayerMask, out CheckShotOutput output, "Enemy", debug);
+            var hitsAlly = shootAbility.CheckShot(_firingController.FirePoint.position, _lookDirection, visionDistance, LayerMaskSingleton.Instance.ShootingLayers, out CheckShotOutput output, "Enemy", debug);
             _firingController.SetAbilityButtonPressed(!hitsAlly);
 
             //if (output.RaycastHit.collider != null && output.RaycastHit.collider.CompareTag("Player"))
