@@ -10,7 +10,6 @@ namespace Assets.Game.Scripts.Entities
     public class Projectile : MonoBehaviour, IAmmo
     {
         [SerializeField] private ParticleSystem particleSmoke;
-        [SerializeField] private LayerMask damageableLayerMask;
         [SerializeField] private LayerMask obstacleLayerMask; //Add a singleton of the layermasks
 
         private Rigidbody2D _rigidbody2d;
