@@ -1,5 +1,6 @@
 ﻿using Assets.Game.Scripts.Entities.ScriptableObjects;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Controllers.AI
@@ -9,7 +10,7 @@ namespace Assets.Game.Scripts.Controllers.AI
         [SerializeField] private EnemyController enemyPrefab;
         [SerializeField] private EnemySpawnPositions[] enemySpawns;
 
-
+        private List<EnemyController> enemies = new();
 
         private void Start()
         {
@@ -22,8 +23,12 @@ namespace Assets.Game.Scripts.Controllers.AI
             {
                 var enemyGameObject = Instantiate(enemyPrefab, enemy.SpawnPosition, Quaternion.identity);
                 enemyGameObject.SetEnemyData(enemy.EnemyData);
+                enemyGameObject.enabled = false;
+                enemies.Add(enemyGameObject);
             }
         }
+
+        public void EnableEnemies(bool isEnabled) => enemies.ForEach(e => e.enabled = isEnabled);
 
         private void OnDrawGizmosSelected()
         {
