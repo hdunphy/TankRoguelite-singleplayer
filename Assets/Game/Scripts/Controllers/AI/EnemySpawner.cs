@@ -12,11 +12,6 @@ namespace Assets.Game.Scripts.Controllers.AI
 
         private List<EnemyController> enemies = new();
 
-        private void Start()
-        {
-            SpawnEnemies();
-        }
-
         public void SpawnEnemies()
         {
             foreach(var enemy in enemySpawns)

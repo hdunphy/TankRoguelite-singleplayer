@@ -1,5 +1,4 @@
-﻿using Assets.Game.Scripts.Controllers.AI;
-using Assets.Game.Scripts.Entities;
+﻿using Assets.Game.Scripts.Entities;
 using Assets.Game.Scripts.Utilities.MonoBehaviours;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +12,9 @@ namespace Assets.Game.Scripts.Controllers.Manager
     {
         [SerializeField] private float secondsToWait;
         [SerializeField] private float playerMovementSpeed;
-        [SerializeField] private EnemySpawner spawner;
         [SerializeField] private List<Door> doors;
-        [SerializeField] private UnityEvent onStartLevel;
+        [SerializeField] private UnityEvent onLevelAwake;
+        [SerializeField] private UnityEvent onLevelStart;
 
         private PlayerController _playerController;
         private EnterRoomData _enterRoomData;
@@ -25,6 +24,7 @@ namespace Assets.Game.Scripts.Controllers.Manager
             _playerController = playerController;
             _enterRoomData = enterRoomData;
 
+            Debug.Log("Entering Room");
             StartCoroutine(OnEnterRoomCoroutine());
         }
 
@@ -47,23 +47,23 @@ namespace Assets.Game.Scripts.Controllers.Manager
             while (Vector2.Distance(_playerController.transform.position, targetPosition) > 0.1f)
             {
                 float blend = Mathf.Pow(0.5f, Time.deltaTime * playerMovementSpeed);
-                Vector3.Lerp(targetPosition, _playerController.transform.position, blend);
+                _playerController.transform.position = Vector3.Lerp(targetPosition, _playerController.transform.position, blend);
 
                 yield return null;
             }
 
             //close doors
-            doors.ForEach(d => d.TriggerOpenDoor(false));
+            doors.ForEach(d => d.TriggerCloseDoor(true));
 
             yield return waitForSecond;
 
             //spawn enemies
-            spawner.SpawnEnemies();
+            onLevelAwake?.Invoke();
 
             yield return waitForSecond;
 
             //start round
-            onStartLevel?.Invoke();
+            onLevelStart?.Invoke();
             EnablePlayerInteractions(true);
         }
     }

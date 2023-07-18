@@ -16,15 +16,17 @@ namespace Assets.Game.Scripts.Controllers.Manager
             currentSceneBuildIndex = startingSceneBuildIndex;
         }
 
-        private void Start()
+        [ContextMenu("Start Game")]
+        public void StartGame()
         {
             var player = FindObjectOfType<PlayerController>();
             player.enabled = false;
-            StartCoroutine(EnterRoom(player, new() { LeavingDoorSide = Entities.DoorSide.Left }));
+            StartCoroutine(EnterRoom(player, new() { LeavingDoorSide = Entities.DoorSide.Right }));
         }
 
         public void ExitRoom(PlayerController playerController, EnterRoomData enterRoomData)
         {
+            Debug.Break();
             StartCoroutine(SwitchScenes(playerController, enterRoomData));
         }
 
@@ -37,7 +39,7 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
         private IEnumerator EnterRoom(PlayerController playerController, EnterRoomData enterRoomData)
         {
-            yield return SceneManager.LoadSceneAsync(GetNextSceneIndex());
+            yield return SceneManager.LoadSceneAsync(GetNextSceneIndex(), LoadSceneMode.Additive);
 
             //yield return null;
             LevelManager.Instance.OnEnterRoom(playerController, enterRoomData);

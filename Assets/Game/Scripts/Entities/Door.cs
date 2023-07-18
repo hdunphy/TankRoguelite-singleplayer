@@ -10,12 +10,12 @@ namespace Assets.Game.Scripts.Entities
     {
         [SerializeField] private DoorSide doorSide;
         [SerializeField] private Transform enterLocation;
-        [SerializeField] private UnityEvent<bool> OnOpenDoor;
+        [SerializeField] private UnityEvent<bool> onCloseDoor;
 
         public DoorSide DoorSide => doorSide;
         public Transform EnterLocation => enterLocation;
 
-        public void TriggerOpenDoor(bool isOpen) => OnOpenDoor?.Invoke(isOpen);
+        public void TriggerCloseDoor(bool isClosed) => onCloseDoor?.Invoke(isClosed);
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
