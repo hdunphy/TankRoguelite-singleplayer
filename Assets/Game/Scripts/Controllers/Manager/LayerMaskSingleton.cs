@@ -1,5 +1,4 @@
 ﻿using Assets.Game.Scripts.Utilities.MonoBehaviours;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Game.Scripts.Controllers.Manager

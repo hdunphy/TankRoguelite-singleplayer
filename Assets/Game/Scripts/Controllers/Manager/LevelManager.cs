@@ -1,5 +1,7 @@
-﻿using Assets.Game.Scripts.Entities;
+﻿using Assets.Game.Scripts.Controllers.AI;
+using Assets.Game.Scripts.Entities;
 using Assets.Game.Scripts.Utilities.MonoBehaviours;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,11 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
             Debug.Log("Entering Room");
             StartCoroutine(OnEnterRoomCoroutine());
+        }
+
+        public void EndLevel()
+        {
+            doors.ForEach(d => d.TriggerCloseDoor(false));
         }
 
         private void EnablePlayerInteractions(bool isEnabled)

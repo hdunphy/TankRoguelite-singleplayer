@@ -10,9 +10,12 @@ namespace Assets.Game.Scripts.Utilities.MonoBehaviours
         {
             if (_instance != null)
             {
-                Debug.LogWarning($"{typeof(T).Name} singleton was constructed twice");
+                Debug.LogWarning($"{typeof(T).Name} singleton was already constructed");
             }
-            _instance = (T)this;
+            else
+            {
+                _instance = (T)this;
+            }
         }
 
         public static T Instance => GetOrCreate();

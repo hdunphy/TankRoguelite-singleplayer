@@ -1,4 +1,5 @@
 ﻿using Assets.Game.Scripts.Utilities.MonoBehaviours;
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,10 +14,11 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
         private void Awake()
         {
-            currentSceneBuildIndex = startingSceneBuildIndex;
+            Instance.currentSceneBuildIndex = startingSceneBuildIndex;
+            //currentSceneBuildIndex = startingSceneBuildIndex;
         }
 
-        [ContextMenu("Start Game")]
+        [Button]
         public void StartGame()
         {
             var player = FindObjectOfType<PlayerController>();
@@ -26,12 +28,12 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
         public void ExitRoom(PlayerController playerController, EnterRoomData enterRoomData)
         {
-            Debug.Break();
             StartCoroutine(SwitchScenes(playerController, enterRoomData));
         }
 
         private IEnumerator SwitchScenes(PlayerController playerController, EnterRoomData enterRoomData)
         {
+            Debug.Log($"Unloading: {SceneManager.GetSceneByBuildIndex(currentSceneBuildIndex).name} - index: {currentSceneBuildIndex}");
             yield return SceneManager.UnloadSceneAsync(currentSceneBuildIndex);
 
             yield return EnterRoom(playerController, enterRoomData);
