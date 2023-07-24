@@ -12,10 +12,10 @@ namespace Assets.Game.Scripts.Controllers.Manager
 
         private int currentSceneBuildIndex;
 
-        private void Awake()
+        protected override void Awake()
         {
-            Instance.currentSceneBuildIndex = startingSceneBuildIndex;
-            //currentSceneBuildIndex = startingSceneBuildIndex;
+            base.Awake();
+            currentSceneBuildIndex = startingSceneBuildIndex;
         }
 
         [Button]

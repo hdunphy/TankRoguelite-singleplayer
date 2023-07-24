@@ -2,37 +2,46 @@
 
 namespace Assets.Game.Scripts.Utilities.MonoBehaviours
 {
-    public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
+    public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
-        private static T _instance;
+        private static T instance;
 
-        protected Singleton()
+        // Property to get the Singleton instance
+        public static T Instance
         {
-            if (_instance != null)
+            get
             {
-                Debug.LogWarning($"{typeof(T).Name} singleton was already constructed");
-            }
-            else
-            {
-                _instance = (T)this;
+                // If the instance is null, try to find an existing instance in the scene
+                if (instance == null)
+                {
+                    instance = FindObjectOfType<T>();
+
+                    // If still null, create a new GameObject with the script attached
+                    if (instance == null)
+                    {
+                        Debug.LogWarning($"Could not locate singleton of type {typeof(T).Name}");
+                        GameObject singletonObject = new(typeof(T).Name);
+                        instance = singletonObject.AddComponent<T>();
+                    }
+                }
+
+                return instance;
             }
         }
 
-        public static T Instance => GetOrCreate();
-
-        private static T GetOrCreate()
+        // Called when the MonoBehaviour is initialized
+        protected virtual void Awake()
         {
-            if (_instance == null)
+            // If an instance already exists and it's not this, destroy this GameObject
+            if (instance != null && instance != this)
             {
-                var gameObject = new GameObject
-                {
-                    name = $"{typeof(T).Name} singleton",
-                    hideFlags = HideFlags.DontSave
-                };
-                return gameObject.AddComponent<T>();
+                Destroy(gameObject);
+                return;
             }
 
-            return _instance;
+            // Set the instance to this if it's not already set
+            instance = this as T;
         }
     }
+
 }

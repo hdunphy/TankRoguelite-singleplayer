@@ -48,7 +48,11 @@ namespace Assets.Game.Scripts.Controllers.Manager
             EnablePlayerInteractions(false);
 
             var targetDoor = doors.Single(d => d.DoorSide == _enterRoomData.LeavingDoorSide.Opposite());
-            _playerController.transform.position = targetDoor.transform.position;
+            Vector3 startPosition = targetDoor.transform.position;
+            _playerController.transform.position = startPosition;
+
+            startPosition.z = Camera.main.transform.position.z;
+            Camera.main.transform.position = startPosition;
 
             var targetPosition = targetDoor.EnterLocation.position;
             while (Vector2.Distance(_playerController.transform.position, targetPosition) > 0.1f)
