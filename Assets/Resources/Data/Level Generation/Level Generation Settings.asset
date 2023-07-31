@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4816d13d7cd34f545815eb2979791e9c, type: 3}
   m_Name: Level Generation Settings
   m_EditorClassIdentifier: 
-  maxRooms: 0
-  roomChances: []
-  roomSize: {x: 0, y: 0}
+  maxRooms: 15
+  roomChances:
+  - Type: 4
+    Chance: 0.1
+  - Type: 1
+    Chance: 0.9
+  roomSize: {x: 1, y: 1}

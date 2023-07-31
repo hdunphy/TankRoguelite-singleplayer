@@ -1,5 +1,6 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets.Game.Scripts.LevelGeneration
 {
@@ -14,11 +15,19 @@ namespace Assets.Game.Scripts.LevelGeneration
         [Button]
         public void Generate()
         {
+            foreach(Transform child in transform)
+            {
+                if (Application.isPlaying)
+                    Destroy(child.gameObject);
+                else if (Application.isEditor)
+                    DestroyImmediate(child.gameObject);
+            }
+
             _levelGeneration = new(settings);
             _levelGeneration.Generate();
 
-            var root = _levelGeneration.Root;
-            AddRoomsToWorld(root);
+            var rooms = _levelGeneration.Root.GetRooms(new());
+            rooms.ForEach(r => Instantiate(roomPrefab, r.Position + startPosition, Quaternion.identity, transform));
         }
 
         private void AddRoomsToWorld(IRoom room)

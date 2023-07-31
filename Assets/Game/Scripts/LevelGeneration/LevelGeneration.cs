@@ -44,7 +44,18 @@ namespace Assets.Game.Scripts.LevelGeneration
                     if(neighborRoom is Room neighbor)
                     {
                         neighbor.Position = room.Position + (doorSide.GetDirection() * _settings.RoomSize);
-                        neighbor.Map[doorSide.Opposite()] = room;
+                        var sides = Enum.GetValues(typeof(DoorSide)).Cast<DoorSide>().ToList();
+                        var currentMap = _root.GetRooms(new());
+                        foreach(var potentialNeighbor in currentMap)
+                        {
+                            var matchingSide = sides.FindIndex(s => potentialNeighbor.Position == s.GetDirection() + neighbor.Position);
+                            if (matchingSide != -1){
+                                neighbor.Map[sides[matchingSide]] = potentialNeighbor;
+                                potentialNeighbor.Map[sides[matchingSide].Opposite()] = neighbor;
+                            }
+                        }
+
+                        //neighbor.Map[doorSide.Opposite()] = room;
                         _totalRoomCount++;
                         _roomQueue.Enqueue(neighbor);
                     }
@@ -56,7 +67,7 @@ namespace Assets.Game.Scripts.LevelGeneration
 
         private IRoom GetRandomRoomType()
         {
-            var chanceIndex = _settings.RoomChances.FindIndex(rc => rc.Chance < UnityEngine.Random.value);
+            var chanceIndex = _settings.RoomChances.FindIndex(rc => rc.Chance > UnityEngine.Random.value);
             var roomType = chanceIndex == -1 ? RoomType.Empty : _settings.RoomChances[chanceIndex].Type;
 
             return roomType is RoomType.Empty ? new EmptyRoom() : new Room(roomType);
@@ -68,6 +79,8 @@ namespace Assets.Game.Scripts.LevelGeneration
     {
         public RoomType RoomType { get; }
         IDictionary<DoorSide, IRoom> Map { get; }
+
+        List<Room> GetRooms(List<Room> rooms);
     }
 
     public enum RoomType { Empty, Normal, Start, End, Chest }
@@ -81,14 +94,16 @@ namespace Assets.Game.Scripts.LevelGeneration
         public float Chance;
     }
 
-    public struct EmptyRoom : IRoom
+    public class EmptyRoom : IRoom
     {
         public RoomType RoomType => RoomType.Empty;
 
         public IDictionary<DoorSide, IRoom> Map => new Dictionary<DoorSide, IRoom>();
+
+        public List<Room> GetRooms(List<Room> rooms) => rooms;
     }
 
-    public struct Room : IRoom
+    public class Room : IRoom
     {
         public IDictionary<DoorSide, IRoom> Map { get; }
         public RoomType RoomType { get; private set; }
@@ -106,5 +121,24 @@ namespace Assets.Game.Scripts.LevelGeneration
                 { DoorSide.Bottom, new EmptyRoom() },
             };
         }
+
+        public List<Room> GetRooms(List<Room> rooms)
+        {
+            rooms.Add(this);
+
+            foreach(var room in Map.Values)
+            {
+                if (!rooms.Contains(room))
+                {
+                    room.GetRooms(rooms);
+                }
+            }
+
+            return rooms;
+        }
+
+        public bool IsPotentialNeighbor(Room other, Vector2 roomSize) =>
+            Mathf.Abs(other.Position.x - Position.x) <= roomSize.x &&
+                Mathf.Abs(other.Position.y - Position.y) <= roomSize.y;
     }
 }
