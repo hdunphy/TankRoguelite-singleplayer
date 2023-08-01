@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4816d13d7cd34f545815eb2979791e9c, type: 3}
   m_Name: Level Generation Settings
   m_EditorClassIdentifier: 
-  maxRooms: 15
+  maxRooms: 50
   roomChances:
   - Type: 4
     Chance: 0.1

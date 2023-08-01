@@ -8,7 +8,7 @@ namespace Assets.Game.Scripts.LevelGeneration
 {
     public class LevelGeneration
     {
-        private Queue<Room> _roomQueue;
+        private Stack<Room> _roomStack;
         private int _totalRoomCount;
         private readonly LevelGenerationSettings _settings;
         private readonly Room _root;
@@ -17,19 +17,19 @@ namespace Assets.Game.Scripts.LevelGeneration
 
         public LevelGeneration(LevelGenerationSettings settings)
         {
-            _roomQueue = new Queue<Room>();
+            _roomStack = new Stack<Room>();
             _totalRoomCount = 0;
             _settings = settings;
 
             _root = new Room(RoomType.Start);
-            _roomQueue.Enqueue(_root);
+            _roomStack.Push(_root);
         }
 
         public void Generate()
         {
-            while (_roomQueue.Count > 0 && _totalRoomCount < _settings.MaxRooms)
+            while (_roomStack.Count > 0 && _totalRoomCount < _settings.MaxRooms)
             {
-                var room = _roomQueue.Dequeue();
+                var room = _roomStack.Pop();
 
                 var keys = room.Map.Keys.ToList();
                 foreach (var doorSide in keys)
@@ -44,7 +44,7 @@ namespace Assets.Game.Scripts.LevelGeneration
                     if(neighborRoom is Room neighbor)
                     {
                         neighbor.Position = room.Position + (doorSide.GetDirection() * _settings.RoomSize);
-                        var sides = Enum.GetValues(typeof(DoorSide)).Cast<DoorSide>().ToList();
+                        var sides = neighbor.Map.Keys.ToList();
                         var currentMap = _root.GetRooms(new());
                         foreach(var potentialNeighbor in currentMap)
                         {
@@ -57,7 +57,7 @@ namespace Assets.Game.Scripts.LevelGeneration
 
                         //neighbor.Map[doorSide.Opposite()] = room;
                         _totalRoomCount++;
-                        _roomQueue.Enqueue(neighbor);
+                        _roomStack.Push(neighbor);
                     }
                     room.Map[doorSide] = neighborRoom;
                 }
