@@ -1,6 +1,5 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
 namespace Assets.Game.Scripts.LevelGeneration
 {
@@ -10,7 +9,7 @@ namespace Assets.Game.Scripts.LevelGeneration
         [SerializeField] private GameObject roomPrefab;
         [SerializeField] private Vector2 startPosition;
 
-        private DepthFirstRandomRoomGenerator _levelGeneration;
+        private ILevelGenerator _levelGeneration;
         private int generationNumber = 0;
         private GameObject levelGenerationGO;
 
@@ -32,7 +31,7 @@ namespace Assets.Game.Scripts.LevelGeneration
             levelGenerationGO = new GameObject($"Gereration {generationNumber++}");
             levelGenerationGO.transform.SetParent(transform);
 
-            _levelGeneration = new(settings);
+            _levelGeneration = new OnePathWithBranchesGenerator((BranchesLevelGenerationSettings)settings);
             _levelGeneration.Generate();
 
             var rooms = _levelGeneration.Root.GetRooms(new());

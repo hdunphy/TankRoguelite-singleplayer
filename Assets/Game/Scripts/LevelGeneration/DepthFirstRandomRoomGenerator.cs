@@ -1,5 +1,4 @@
 ﻿using Assets.Game.Scripts.Entities;
-using Assets.Game.Scripts.Entities.Abilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +15,19 @@ namespace Assets.Game.Scripts.LevelGeneration
         void Generate();
     }
 
-    public class BranchesLevelGenerationSettings : LevelGenerationSettings
-    {
-        [SerializeField, Range(0.1f, 1)] private float mainPathPercentage;
-        [SerializeField, Range(0, 1)] private float changeDirectionChance;
-
-        public float MainPathPercentage { get => mainPathPercentage; set => mainPathPercentage = value; }
-        public float ChangeDirectionChance { get => changeDirectionChance; set => changeDirectionChance = value; }
-    }
-
     public class OnePathWithBranchesGenerator : ILevelGenerator
     {
         private readonly BranchesLevelGenerationSettings _settings;
         private readonly Room _root;
 
         public Room Root => _root;
+
+
+        public OnePathWithBranchesGenerator(BranchesLevelGenerationSettings settings)
+        {
+            _settings = settings;
+            _root = new Room(RoomType.Start);
+        }
 
         public void Generate()
         {
