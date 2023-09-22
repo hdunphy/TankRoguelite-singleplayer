@@ -10,34 +10,48 @@ namespace Assets.Game.Scripts.LevelGeneration
         [SerializeField] private GameObject roomPrefab;
         [SerializeField] private Vector2 startPosition;
 
-        private LevelGeneration _levelGeneration;
+        private DepthFirstRandomRoomGenerator _levelGeneration;
+        private int generationNumber = 0;
+        private GameObject levelGenerationGO;
 
         [Button]
         public void Generate()
         {
-            foreach(Transform child in transform)
+            if (levelGenerationGO != null)
             {
                 if (Application.isPlaying)
-                    Destroy(child.gameObject);
+                {
+                    Destroy(levelGenerationGO);
+                }
                 else if (Application.isEditor)
-                    DestroyImmediate(child.gameObject);
+                {
+                    DestroyImmediate(levelGenerationGO);
+                }
             }
+
+            levelGenerationGO = new GameObject($"Gereration {generationNumber++}");
+            levelGenerationGO.transform.SetParent(transform);
 
             _levelGeneration = new(settings);
             _levelGeneration.Generate();
 
             var rooms = _levelGeneration.Root.GetRooms(new());
-            rooms.ForEach(r => Instantiate(roomPrefab, r.Position + startPosition, Quaternion.identity, transform));
+            int i = 0;
+            rooms.ForEach(r =>
+            {
+                var room = Instantiate(roomPrefab, r.Position + startPosition, Quaternion.identity, levelGenerationGO.transform);
+                room.name = $"Room {i++}";
+            });
         }
 
         private void AddRoomsToWorld(IRoom room)
         {
-            if(room is Room _room)
+            if (room is Room _room)
             {
                 var roomObject = Instantiate(roomPrefab, _room.Position + startPosition, Quaternion.identity, transform);
             }
 
-            foreach(var neighbor in room.Map.Values)
+            foreach (var neighbor in room.Map.Values)
             {
                 AddRoomsToWorld(neighbor);
             }

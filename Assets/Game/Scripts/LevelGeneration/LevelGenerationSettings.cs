@@ -13,5 +13,13 @@ namespace Assets.Game.Scripts.LevelGeneration
         public int MaxRooms => maxRooms;
         public List<RoomChance> RoomChances => roomChances;
         public Vector2 RoomSize => roomSize;
+
+        public IRoom GetRandomRoomType()
+        {
+            var chanceIndex = RoomChances.FindIndex(rc => rc.Chance > Random.value);
+            var roomType = chanceIndex == -1 ? RoomType.Empty : RoomChances[chanceIndex].Type;
+
+            return roomType is RoomType.Empty ? new EmptyRoom() : new Room(roomType);
+        }
     }
 }
